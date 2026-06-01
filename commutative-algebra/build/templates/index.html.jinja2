@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Commutative Algebra Knowledge Base</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="lunr.min.js"></script>
+  <script>window.SEARCH_DOCUMENTS = JSON.parse(new TextDecoder().decode(Uint8Array.from(atob("{{ search_documents|b64_json }}"), (char) => char.charCodeAt(0))));</script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="index.html">Commutative Algebra</a>
+    <label class="search-label" for="search">Search</label>
+    <input id="search" class="search-input" type="search" placeholder="Search the course">
+    <div id="search-results" class="search-results" aria-live="polite"></div>
+    <nav class="lecture-nav" aria-label="Lectures">
+      {% for lecture in lectures %}
+        <a class="lecture-link" href="{{ lecture.href }}">
+          <span class="lecture-id">{{ lecture.document_id }}</span>
+          <span>{{ lecture.title }}</span>
+        </a>
+      {% endfor %}
+      {% if has_homework %}
+        <a class="lecture-link" href="homework.html">
+          <span class="lecture-id">homework</span>
+          <span>Problem sets</span>
+        </a>
+      {% endif %}
+    </nav>
+  </aside>
+
+  <main class="content overview">
+    <div class="topline"><span>Static course reader</span><span>file-openable</span></div>
+    <h1>Commutative Algebra Knowledge Base</h1>
+    <p class="lede">Interactive static index generated from the Rice commutative algebra lecture PDFs.</p>
+
+    <section class="overview-table" aria-label="Lecture overview">
+      {% for lecture in lectures %}
+        <article class="overview-row">
+          <div>
+            <a class="overview-title" href="{{ lecture.href }}">{{ lecture.title }}</a>
+            <div class="overview-meta">{{ lecture.definition_count }} definitions · {{ lecture.theorem_count }} theorem-like results</div>
+          </div>
+          <div class="overview-sections">
+            {% for section in lecture.sections[:6] %}
+              <a href="{{ lecture.href }}#{{ section.anchor_id }}">{{ section.heading }}</a>
+            {% endfor %}
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+
+    {% if has_homework %}
+      <p class="homework-callout"><a href="homework.html">Open the homework section</a></p>
+    {% endif %}
+  </main>
+
+  <script>
+    (function () {
+      const docs = window.SEARCH_DOCUMENTS || [];
+      const input = document.getElementById("search");
+      const results = document.getElementById("search-results");
+      if (!input || !results || docs.length === 0) return;
+
+      if (!window.lunr) {
+        input.addEventListener("input", () => {
+          results.innerHTML = "";
+          const query = input.value.trim().toLowerCase();
+          if (query.length < 2) return;
+          const matches = docs.filter((doc) =>
+            `${doc.label || ""} ${doc.type || ""} ${doc.body || ""} ${doc.title || ""}`.toLowerCase().includes(query)
+          ).slice(0, 12);
+          renderResults(matches);
+        });
+        return;
+      }
+      const byId = new Map(docs.map((doc) => [doc.id, doc]));
+      const index = lunr(function () {
+        this.ref("id");
+        this.field("label", { boost: 8 });
+        this.field("body");
+        docs.forEach((doc) => this.add(doc));
+      });
+      input.addEventListener("input", () => {
+        results.innerHTML = "";
+        const query = input.value.trim();
+        if (query.length < 2) return;
+        let matches = [];
+        try { matches = index.search(query + "*").slice(0, 12); }
+        catch (_error) { matches = index.search(query).slice(0, 12); }
+        renderResults(matches.map((match) => byId.get(match.ref)).filter(Boolean));
+      });
+      function renderResults(matches) {
+        for (const doc of matches) {
+          if (!doc) continue;
+          const item = document.createElement("a");
+          item.className = "search-result";
+          item.href = doc.href;
+          item.innerHTML = `<strong>${escapeHtml(doc.label || doc.title)}</strong><span>${escapeHtml(doc.type)} · ${escapeHtml(doc.lecture)}</span>`;
+          results.appendChild(item);
+        }
+      }
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (char) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+        }[char]));
+      }
+    })();
+  </script>
+</body>
+</html>

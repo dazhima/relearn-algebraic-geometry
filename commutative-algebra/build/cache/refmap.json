@@ -1,0 +1,52 @@
+{
+  "refs": {
+    "Definition 1.1": {
+      "lecture_id": "lecture-01",
+      "anchor_id": "def-1-1",
+      "title": "Lecture 1: 1. Categories"
+    },
+    "Definition 2.1": {
+      "lecture_id": "lecture-01",
+      "anchor_id": "def-2-1",
+      "title": "Lecture 1: 1. Categories"
+    },
+    "Lemma 1.1": {
+      "lecture_id": "lecture-02",
+      "anchor_id": "lem-1-1",
+      "title": "Lecture 2: 1. Uniquness of initial and terminal objects"
+    },
+    "Theorem 3.1": {
+      "lecture_id": "lecture-02",
+      "anchor_id": "thm-3-1",
+      "title": "Lecture 2: 1. Uniquness of initial and terminal objects"
+    },
+    "Corollary 3.2": {
+      "lecture_id": "lecture-02",
+      "anchor_id": "cor-3-2",
+      "title": "Lecture 2: 1. Uniquness of initial and terminal objects"
+    },
+    "Theorem 1.1": {
+      "lecture_id": "lecture-03",
+      "anchor_id": "thm-1-1",
+      "title": "Lecture 3: 1. Nilradical and Jacobson radical (continued)"
+    },
+    "Proposition 1.4": {
+      "lecture_id": "lecture-03",
+      "anchor_id": "prop-1-4",
+      "title": "Lecture 3: 1. Nilradical and Jacobson radical (continued)"
+    },
+    "Corollary 1.5": {
+      "lecture_id": "lecture-03",
+      "anchor_id": "cor-1-5",
+      "title": "Lecture 3: 1. Nilradical and Jacobson radical (continued)"
+    },
+    "Lemma 2.2": {
+      "lecture_id": "lecture-03",
+      "anchor_id": "lem-2-2",
+      "title": "Lecture 3: 1. Nilradical and Jacobson radical (continued)"
+    }
+  },
+  "duplicates": {
+    "Definition 2.1": 3
+  }
+}

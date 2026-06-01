@@ -1,0 +1,173 @@
+{
+  "document_id": "lecture-01",
+  "lecture_id": "lecture-01",
+  "homework_id": null,
+  "kind": "lecture",
+  "title": "Lecture 1: 1. Categories",
+  "source_pdf": "Lecture1.pdf",
+  "source_path": "/Users/yanh/Docs/@Archive/2019/Course_in_Rice/Commutative_algebra/lectures/Lecture1.pdf",
+  "blocks": [
+    {
+      "type": "body",
+      "number": null,
+      "label": null,
+      "text": "MATH 464: LECTURE 1\nRICE UNIVERSITY, SPRING 2020",
+      "anchor_id": null,
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "section_heading",
+      "number": "1",
+      "label": "Categories",
+      "text": "In this course we’ll adopt a utilitarian point of view when it comes to category theory: while many\npeople study it for its own sake, we’ll think of category theory as a clean, organizing framework for\na lot of modern mathematics, that allows us to relate seemingly di↵erent parts of the subject.",
+      "anchor_id": "sec-1-categories",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "definition",
+      "number": "1.1",
+      "label": null,
+      "text": "A category consists of\nC\na collection of objects Ob( ),\n• C\na set Mor(A, B) for every two objects A, B Ob( ),\n• 2 C\na composition law\n•\n\u0000 : Mor(A, B) Mor(B, C) Mor(A, C)\n⇥ !\nfor every three objects A, B and C Ob( ). To avoid clutter, we will use the symbol for\n2 C \u0000\ncomposition, and write f g instead of \u0000(g, f ).\n\u0000\nThese objects and morphisms satisfy the following properties:\n(1) Mor(A, B) Mor(A , B ) = unless A = A and B = B .\n0 0 0 0\n\\ ;\n(2) For every A Ob( ) there is a morphism id Mor(A, A) which acts as the identity on\nA\n2 C 2\nthe right on Mor(A, B) and as the identity on the left on Mor(B, A). This means, for",
+      "anchor_id": "def-1-1",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": null,
+      "label": null,
+      "text": ", that f id = f for any f Mor(A, B).\nA\n\u0000 2\n(3) The law of composition is associative, i.e., given objects A, B, C and D in Ob( ) and\nC\nmorphisms f Mor(A, B), g Mor(B, C) and h Mor(C, D), we have\n2 2 2\n(h g) f = h (g f )\n\u0000 \u0000 \u0000 \u0000\nNotation: we often write f : A B for an element f Mor(A, B).\n! 2",
+      "anchor_id": "ex-1",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.2",
+      "label": null,
+      "text": "= Sets. The objects of Sets are sets and morphisms between two sets are just\nC\nmaps between sets.",
+      "anchor_id": "ex-1-2",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.3",
+      "label": null,
+      "text": "= Groups. The objects of Groups are groups and morphisms between two\nC\ngroups are just group homomorphisms.",
+      "anchor_id": "ex-1-3",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.4",
+      "label": null,
+      "text": "= Rings. The objects of Rings are commutative rings with unit, and morphisms\nC\nbetween two rings are ring homomorphisms (Remember: if \u0000 : A B is a homomorphism of rings,\n!\nthen we require that \u0000(1 ) = 1 ).\nA B",
+      "anchor_id": "ex-1-4",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.5",
+      "label": null,
+      "text": "= A-Mod. The objects of A-Mod are modules over a ring A and morphisms\nC\nbetween two modules are A-module homomorphisms. As a special case, if A = k is a field, we\nDate: January 13th, 2020.\n1\nrecover the category k-Vect of vector spaces with k as their field of scalars, whose morphisms are\ngiven by linear transformations. If A = Z, then we recover the category AbGps of abelian groups.",
+      "anchor_id": "ex-1-5",
+      "page_start": 1,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "1.6",
+      "label": null,
+      "text": "= Top. The objects of Top are topological spaces, and the morphisms are\nC\ncontinuous maps between topological spaces.",
+      "anchor_id": "ex-1-6",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "1.7",
+      "label": null,
+      "text": "= G-Sets. The objects of G-Sets are sets together with the action of a group\nC\nG on them, and the morphisms are set maps that respect the group action. In other words, if S\nand T are in Ob(G-Sets), then a map f : S T is a map of sets that satisfies f (g s) = g f (s)\n! · ·\nfor any g G and s S.\n2 2\nMANTRA: the morphisms of a category are just as important as the objects themselves! In fact,\nthe morphisms of a category can be “turned into objects” in a di↵erent category, as the following",
+      "anchor_id": "ex-1-7",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": null,
+      "label": null,
+      "text": "shows.",
+      "anchor_id": "ex-2",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "1.8",
+      "label": null,
+      "text": "Let be a category. We construct a new category whose objects are all the\nC D\nmorphisms of (in particular, Ob( ) might not be a set!). Say f : A B and g : A B are two\n0 0\nC D ! !\nobjects of . a morphism between them is a pair of maps (\u0000, ) Mor (A, A ) Mor (B, B )\n0 0\nD 2 C ⇥ C\nsuch that the following diagram commutes\nf\nA // B\n\u0000\n✏✏ g ✏✏\nA 0 // B 0",
+      "anchor_id": "ex-1-8",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "section_heading",
+      "number": "2",
+      "label": "Initial and terminal objects",
+      "text": "Some categories are endowed with particular objects that either admit a map to or from ev-\nery other object in the category. I want to use these objects to introduce an important notion:\nuniqueness up to unique isomorphism.",
+      "anchor_id": "sec-2-initial-and-terminal-objects",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "definition",
+      "number": "2.1",
+      "label": null,
+      "text": "An initial object in a category is an object P Ob( ) such that for every other\nC 2 C\nobject A Ob( ) there exists a unique morphism P A (i.e., Mor(P, A) is a singleton set for\n2 C !\nevery A). A terminal object is an object P Ob( ) such that for every other object A Ob( )\n2 C 2 C\nthere exists a unique morphism A P (i.e., Mor(A, P ) is a singleton set for every A).\n!",
+      "anchor_id": "def-2-1",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "2.2",
+      "label": null,
+      "text": "The category Sets has an initial object: the empty set. It also has terminal objects:\nany singleton set is a terminal object. So these objects need not be unique. However, it’s clear that\nany two singleton sets are in bijection by a unique map.",
+      "anchor_id": "ex-2-2",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "2.3",
+      "label": null,
+      "text": "In the category Groups, any group with exactly one element is both an initial and\na terminal object!",
+      "anchor_id": "ex-2-3",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "2.4",
+      "label": null,
+      "text": "In the category Rings, the integers Z give an initial object. If A is any ring, then\nin order for a map \u0000 : Z A to be a ring homomorphism, we must map 1 Z to 1 A. The property\n! 2\nthat \u0000(a + b) = \u0000(a) + \u0000(b) then forces your hand for every other integer. Thus \u0000 is unique! The\nA\nzero ring is a terminal object.",
+      "anchor_id": "ex-2-4",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "example",
+      "number": "2.5",
+      "label": null,
+      "text": "Initial and/or terminal objects need not exist. For example, in the category of all\nfields, there are neither initial objects nor terminal objects.\n2",
+      "anchor_id": "ex-2-5",
+      "page_start": 2,
+      "page_end": 2
+    }
+  ]
+}

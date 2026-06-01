@@ -1,0 +1,146 @@
+{
+  "document_id": "lecture-03",
+  "lecture_id": "lecture-03",
+  "homework_id": null,
+  "kind": "lecture",
+  "title": "Lecture 3: 1. Nilradical and Jacobson radical (continued)",
+  "source_pdf": "Lecture3.pdf",
+  "source_path": "/Users/yanh/Docs/@Archive/2019/Course_in_Rice/Commutative_algebra/lectures/Lecture3.pdf",
+  "blocks": [
+    {
+      "type": "body",
+      "number": null,
+      "label": null,
+      "text": "MATH 464/564: LECTURE 3\nRICE UNIVERSITY, SPRING 2020\nWe continue our development of further ideal theory, following the treatment in Chapter 1 of\nAtiya-Macdonald.",
+      "anchor_id": null,
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "section_heading",
+      "number": "1",
+      "label": "Nilradical and Jacobson radical (continued)",
+      "text": "The nilradical of a ring A has a characterization in terms of prime ideals.\n(cid:92)",
+      "anchor_id": "sec-1-nilradical-and-jacobson-radical-continued",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "theorem",
+      "number": "1.1",
+      "label": "Krull",
+      "text": "We have N = p.\np⊆A prime",
+      "anchor_id": "thm-1-1",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "proof",
+      "number": null,
+      "label": null,
+      "text": "We start with the inclusion “⊆”. If f ∈ N then for some n > 0 we have f n = 0 and so for\nevery prime ideal p, we have f n ∈ p. Since p is prime, this means that f ∈ p.\nNow we do the other inclusion “⊇”. We’ll show the contrapositive\n(cid:92)\nf ∈/ N =⇒ f ∈/ p.\np⊆A prime\nSo let f ∈/ N . Consider the set\n(cid:88)\n:= {a ⊆ A ideal : n > 0 =⇒ f n ∈/ a} ,\n(cid:80) (cid:80) (cid:80)\nand note that (cid:54)= ∅ because (0) ∈ , as f is not nilpotent. Order by inclusion, and note that\n(cid:80)\nevery chain has an upper bound. By Zorn’s Lemma, has a maximal element p. We claim that\n(cid:84)\np is a prime ideal. Since f ∈/ p (taking n = 1), it will follow that f ∈/ p, as desired.\np⊆A prime\nSuppose that x, y are not in p. Then the inclusions p ⊂ p + (x) and p ⊂ p + (y) are proper, and\n(cid:80) (cid:80)\nby maximality of p, we conclude that p + (x) ∈/ and p + (y) ∈/ . Therefore, there exist n > 0\nand m > 0 such that\nf n ∈ p + (x) and f m ∈ p + (y).\nBut then f n+m ∈ p + (xy), so p + (xy) ∈/ (cid:80) , which means that xy ∈/ p, proving thus that p is a\nprime ideal, as claimed. (cid:3)\nIf instead of intersecting all prime ideals of A, we intersect only those ideals which are maximal,\nwe obtain a possibly bigger ideal than the nilradical. This is called the Jacobson radical of A, and\nis denoted R:\n(cid:92)\nR := m.\nm⊆A maximal",
+      "anchor_id": null,
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.2",
+      "label": null,
+      "text": "Here’s an interesting example. Suppose that X is a topological space. Let A =\nC(X) be the ring of continuous, complex valued functions on X. I claim that R contains only the\nzero function. To see this, for every x ∈ X, consider the ideal m := {f ∈ C(X) : f (x) = 0}. I\nx\nclaim this ideal is maximal (prove this!). If f ∈ R, then we must have f ∈ m for every x ∈ X.\nx\nThis means that f (x) = 0 for every x ∈ X. Since N ⊆ R, we conclude that the nilradical in this",
+      "anchor_id": "ex-1-2",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": null,
+      "label": null,
+      "text": "is also trivial.\nDate: January 17th, 2020.\n1",
+      "anchor_id": "ex-1",
+      "page_start": 1,
+      "page_end": 1
+    },
+    {
+      "type": "example",
+      "number": "1.3",
+      "label": null,
+      "text": "A priori, the Jacobson radical of a ring could be larger than the nilradical. Here is\nan example of where this happens. Let (A, m) be a local ring which is an integral domain (e.g., the\np-adic numbers). Then N = (0) but R = m.\nThere is a way to characterize the elements of the Jacobson radical, analogous to the character-\nization of elements of the nilradical as nilpotent elements",
+      "anchor_id": "ex-1-3",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "proposition",
+      "number": "1.4",
+      "label": null,
+      "text": "We have x ∈ R if and only if 1 − xy is a unit for every y ∈ A.",
+      "anchor_id": "prop-1-4",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "proof",
+      "number": null,
+      "label": null,
+      "text": "Suppose that 1 − xy is not a unit for some y ∈ A. Then 1 − xy is contained in some maximal\nideal m of A. If x ∈ m then xy ∈ m and this would imply that (1 − xy) + xy ∈ m, which is a\ncontradiction. Hence x ∈/ m, and x ∈/ R.\nFor the other inclusion we prove the contrapositive. Suppose that x ∈/ R. Then there is a\nmaximal ideal m such that x ∈/ m. It follows that m + (x) = A, which means there exists y ∈ A\nsuch that 1 − xy ∈ m, so 1 − xy is not a unit. (cid:3)",
+      "anchor_id": null,
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "section_heading",
+      "number": "1.1",
+      "label": "The radical of an ideal. If a ⊆ A is an ideal, we define the radical of a to be",
+      "text": "r(a) := {x ∈ A : xn ∈ a for some n > 0}\nIf φ : A → A/a is the usual quotient map, then r(a) = φ−1 (cid:0) N (cid:1) , so r(a) is an ideal. Applying\nA/a\nKrull’s theorem to A/a we obtain the following corollary.\n(cid:92)",
+      "anchor_id": "sec-1-1-the-radical-of-an-ideal-if-a-a-is-an-ideal-we-define-the-radical-of-a-to-be",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "corollary",
+      "number": "1.5",
+      "label": null,
+      "text": "Let a ⊆ A be an ideal. Then r(a) = p.\np prime\na⊆p\nRadicals enjoy a few properties that are easy to prove and are left for you to work out:\n(1) r (r(a)) = r(a).\n(2) r(ab) = r(a ∩ b) = r(a) ∩ r(b).\n(3) r(a) = A ⇐⇒ a = A.\n(4) r(a + b) = r (r(a) + r(b)).\n(5) if p is prime then r(pn) = p.",
+      "anchor_id": "cor-1-5",
+      "page_start": 2,
+      "page_end": 2
+    },
+    {
+      "type": "section_heading",
+      "number": "2",
+      "label": "The Chinese remainder theorem",
+      "text": "In elementary number theory you probably came across the Chinese remainder theorem. It says\nthat if m , . . . , m are pairwise relatively prime integers, and if a , . . . , a are any old integers, then\n1 n 1 n\nthere exists an integer x satisfying the following simultaneous congruences:\nx ≡ a mod m\n1 1\n.\n.\n.\nx ≡ a mod m\nn n\nPut differently, given m , . . . , m pairwise relatively prime integers, the product map of quotient\n1 n\nmaps\nZ → Z/m Z × · · · × Z/m Z\n1 n\nx (cid:55)→ (x mod m , . . . , x mod m )\n1 n\nis surjective. This way of phrasing the theorem can be generalized to arbitrary commutative rings\nwith unit A. The theorem you know is the case A = Z. But we need a notion of “relatively prime”\nfirst. Recall that two integers m and n are relatively prime if and only if there exist integers a and\nb such that\nam + bn = 1,\n2\nin other words, using ideals, if and only if (m) + (n) = (1). This is the notion that generalizes\nnicely.",
+      "anchor_id": "sec-2-the-chinese-remainder-theorem",
+      "page_start": 2,
+      "page_end": 3
+    },
+    {
+      "type": "definition",
+      "number": "2.1",
+      "label": null,
+      "text": "Two ideals a and b of a ring A are relatively prime if a + b = (1).\nIt is easy to see that if a and b are any two ideals of a ring A then\n(a + b)(a ∩ b) ⊆ ab\nOn the other hand, ab ⊆ a ∩ b and so\na ∩ b = ab provided a + b = (1).\nSo for relatively prime ideals we have a ∩ b = ab. More generally, we have the following Lemma.\n(cid:81)",
+      "anchor_id": "def-2-1",
+      "page_start": 3,
+      "page_end": 3
+    },
+    {
+      "type": "lemma",
+      "number": "2.2",
+      "label": null,
+      "text": "If a , . . . , a are pairwise coprime ideals of a ring A, then ∩a = a .\n1 n i i",
+      "anchor_id": "lem-2-2",
+      "page_start": 3,
+      "page_end": 3
+    },
+    {
+      "type": "proof",
+      "number": null,
+      "label": null,
+      "text": "Induction on n. The case n = 2 is the base case done above. See Proposition 1.10(i) of\nAtiyah-Macdonald for details (better yet: fill in these details yourself!). (cid:3)\n3",
+      "anchor_id": null,
+      "page_start": 3,
+      "page_end": 3
+    }
+  ]
+}
