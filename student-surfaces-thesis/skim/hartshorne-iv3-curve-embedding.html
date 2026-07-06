@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IV.3 · Very ampleness on curves — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.attack{background:var(--red);color:#fff}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="hartshorne-ii7.html">II.7</a> → <strong>IV.3</strong> → <a href="kodaira-embedding-theorem.html">hinge (n=1 check)</a></span></nav>
+
+<h1>Very ampleness on curves: $n \ge 2g+1$ — black box #1</h1>
+<div class="chips"><span class="chip attack">under attack — first pass hit trouble, being checked</span><span class="chip src">Hartshorne IV.3.3 via II.7 · board-script §8</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+This is the one black box currently being opened. Session 1 <em>used</em> the fact live to embed a curve; deriving it is the current unit of work.</div>
+
+<h2>What this is</h2>
+<p>The fact session 1 §8 stood on: for a point $P$ on a compact curve $X$ of genus $g$, the divisor $nP$ with $n \ge 2g+1$ is <em>very ample</em> — its sections embed $X \hookrightarrow \mathbb P^{n-g}$. Combined with Chow's theorem, this proved "compact Riemann surface = algebraic curve." It is also, exactly, the $n=1$ case of the <a href="kodaira-embedding-theorem.html">Kodaira embedding theorem</a>: "$\deg > 0$" is the curve reading of "positive line bundle."</p>
+
+<h2>Where the difficulty actually lives</h2>
+<p>The <code>dependency-map.html</code> kill list split this in two. The <em>arithmetic</em> half is already yours: separating points means $h^0(D-P-Q) = h^0(D)-2$, separating tangents means $h^0(D-2P) = h^0(D)-2$, and both follow from Riemann–Roch in the non-special range — session 1 material, done. The <em>conceptual</em> half is the II.7 machine: why "separates points + separates tangent vectors" is equivalent to being a closed immersion (C3/Prop 7.3), and why ample implies a power is very ample (C5/Thm 7.6). That half is what hit trouble on the first pass and is being checked now.</p>
+<div class="callback">Both derivations of the bound already exist on the board at threshold level: algebraically ($\deg(K - nP) < 0$ kills the correction terms) and analytically (Sketches A+B+C applied to $nP$, giving the identical $n \ge 2g+1$ with zero algebraic input) — board-script §8. What's missing is not the bound; it's owning the embedding criterion underneath it.</div>
+
+<h2>Key statement</h2>
+<div class="stmt">$X$ smooth projective curve, genus $g$; $D$ a divisor. If $\deg D \ge 2g+1$ then $|D|$ is base-point-free and very ample: $\varphi_{|D|}: X \hookrightarrow \mathbb P^{\deg D - g}$ is a closed immersion. In particular every $P$: $\deg P = 1 > 0 \Rightarrow P$ ample, and $nP$ very ample for $n\ge 2g+1$.</div>
+
+<h2>Why this node matters beyond curves</h2>
+<p>When B2/B3 are built, the general Kodaira statement must <em>recover this exact bound</em> on specialization — that's the consistency check drawn as the red dashed edge in the graph. If the assembly doesn't reproduce $2g+1$, something is wrong upstream. This node is the network's unit test.</p>
+
+<h2>To go further</h2>
+<p>Sources: Hartshorne IV.3 (the curve statement), II.7 C3 + C5 (the machinery), <code>board-script.md</code> §8 (both live derivations at threshold level).</p>
+<div class="up"><strong>What upgrades this to a module:</strong> finish the current check of the II.7 pass; stub with the C3-reduction written out; E-entry: run the criterion on the elliptic curve with $D = 3P$ and watch the Weierstrass cubic appear (session-1 corollary #4, now with the criterion proved).</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Black Boxes to a Thesis — Hartshorne IV–V Reading Guide</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+  :root{
+    --purple:#7C3AED; --purple-dark:#3B0764; --purple-bg:#F5F3FF;
+    --amber:#B45309; --amber-bg:#FFFBEB; --amber-line:#D97706;
+    --ink:#241f2e; --muted:#6b6478; --line:#e6e1f0; --paper:#fffdfb;
+    --green:#15803d; --green-bg:#f0fdf4;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family: Georgia, 'Iowan Old Style', 'Palatino Linotype', serif;
+    line-height:1.7; font-size:17px;
+  }
+  h1,h2,h3,h4,.badge,.toc,nav,.small-ui{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+  a{color:var(--purple); text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{background:#f1eefb;padding:.1em .35em;border-radius:4px;font-size:.9em;color:var(--purple-dark)}
+
+  /* ---- layout ---- */
+  #shell{display:flex; max-width:1180px; margin:0 auto}
+  #toc{
+    width:230px; flex-shrink:0; position:sticky; top:0; height:100vh; overflow-y:auto;
+    padding:2.2em 1.2em 2em 1.6em; border-right:1px solid var(--line);
+  }
+  #toc .t{font-size:.72em; letter-spacing:.09em; color:var(--muted); text-transform:uppercase; margin-bottom:.8em}
+  #toc ol{list-style:none; margin:0; padding:0; font-size:.86em}
+  #toc li{margin:.15em 0}
+  #toc a{color:var(--ink); display:block; padding:.25em .4em; border-radius:5px}
+  #toc a:hover{background:var(--purple-bg); text-decoration:none}
+  #toc .sub{margin-left:.9em; font-size:.94em}
+  #toc .status{float:right; font-size:.75em}
+  main{flex:1; min-width:0; padding:0 3em 6em}
+  @media (max-width:920px){ #toc{display:none} main{padding:0 1.4em 4em} }
+
+  /* ---- hero ---- */
+  header.hero{padding:3.5em 0 1em; border-bottom:1px solid var(--line); margin-bottom:1.6em}
+  header.hero h1{font-size:2.05em; font-weight:600; margin:.1em 0 .3em; line-height:1.25; font-family: Georgia, serif;}
+  header.hero .meta{color:var(--muted); font-size:.95em; font-family:-apple-system,sans-serif}
+  header.hero .lede{font-size:1.12em; margin-top:1em; max-width:66ch}
+
+  /* ---- roadmap ---- */
+  .roadmap-wrap{margin:2em 0 2.6em; padding:1.4em 1.6em 1.1em; background:var(--purple-bg); border-radius:12px}
+  .roadmap-wrap .cap{font-size:.85em; color:var(--purple-dark); font-family:-apple-system,sans-serif; margin-top:.6em}
+  .legend{display:flex; gap:1.6em; font-size:.8em; color:var(--muted); font-family:-apple-system,sans-serif; margin-top:.3em}
+  .legend span{display:inline-flex; align-items:center; gap:.4em}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .dot.on{background:var(--purple)}
+  .dot.off{background:#fff;border:2px solid #c9bff0}
+
+  /* ---- section chrome ---- */
+  section{margin:3em 0}
+  section > h2{font-size:1.55em; font-weight:600; border-left:5px solid var(--purple); padding-left:.5em; margin-bottom:.2em}
+  h3{font-size:1.2em; font-weight:600; color:var(--purple-dark); margin-top:1.6em}
+  .status{display:inline-block; font-size:.68em; letter-spacing:.05em; text-transform:uppercase; font-weight:700;
+    padding:.2em .6em; border-radius:20px; margin-left:.6em; vertical-align:middle; font-family:-apple-system,sans-serif}
+  .status.progress{background:var(--purple); color:#fff}
+  .status.planned{background:#eee; color:var(--muted)}
+  .status.later{background:#f4f4f4; color:#999}
+
+  /* ---- callout boxes ---- */
+  .box{border-radius:10px; padding:1em 1.3em; margin:1.3em 0}
+  .box .lbl{display:block; font-size:.7em; letter-spacing:.09em; text-transform:uppercase; font-weight:700;
+    margin-bottom:.5em; font-family:-apple-system,sans-serif}
+  .def{background:var(--purple-bg); border-left:4px solid var(--purple)}
+  .def .lbl{color:var(--purple)}
+  .blackbox{background:var(--amber-bg); border:1.5px dashed var(--amber-line)}
+  .blackbox .lbl{color:var(--amber)}
+  .example{background:#f7f7f9; border-left:4px solid #999}
+  .example .lbl{color:#666}
+  .promise{background:var(--green-bg); border-left:4px solid var(--green)}
+  .promise .lbl{color:var(--green)}
+
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:1em; margin:1.3em 0}
+  @media (max-width:640px){ .split{grid-template-columns:1fr} }
+  .split .who{border:1px solid var(--line); border-radius:10px; padding:1em 1.2em}
+  .split .who h4{margin:0 0 .5em; font-size:.95em; font-family:-apple-system,sans-serif; color:var(--purple-dark)}
+  .split .who.student{border-color:#cbd5e1}
+  .split .who ul{margin:.3em 0 0; padding-left:1.2em}
+
+  table{width:100%; border-collapse:collapse; margin:1.2em 0; font-size:.93em}
+  th,td{text-align:left; padding:.55em .7em; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-family:-apple-system,sans-serif; font-size:.78em; text-transform:uppercase; letter-spacing:.05em; color:var(--muted)}
+
+  blockquote{margin:1em 0; padding:.2em 0 .2em 1.2em; border-left:3px solid #ddd; color:var(--muted); font-style:italic}
+  .eq-wrap{overflow-x:auto; padding:.3em 0}
+  .tag{color:var(--muted); font-size:.85em}
+  hr.div{border:none; border-top:1px solid var(--line); margin:3em 0}
+  footer{color:var(--muted); font-size:.85em; padding:2em 0 6em; font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body>
+
+<div id="shell">
+
+<nav id="toc">
+  <div class="t">On this page</div>
+  <ol>
+    <li><a href="#stand">Where you stand</a></li>
+    <li><a href="#bet">The bet</a></li>
+    <li><a href="#method">Black-box-first method</a></li>
+    <li><a href="#labor">Two routes, one comparison</a></li>
+    <li><a href="#modules">Module map</a>
+      <ol class="sub">
+        <li><a href="#m0">M0 — Contract <span class="status progress" style="padding:.05em .5em">now</span></a></li>
+        <li><a href="#m1">M1 — Vocabulary</a></li>
+        <li><a href="#m2">M2 — Curves (IV)</a></li>
+        <li><a href="#m3">M3 — Surfaces (V)</a></li>
+        <li><a href="#m4">M4 — Ledger</a></li>
+        <li><a href="#m5">M5 — Dual unlock</a></li>
+        <li><a href="#m6">M6 — Thesis</a></li>
+      </ol>
+    </li>
+    <li><a href="#anchors">Thesis anchors</a></li>
+    <li><a href="#session1">Session 1 agenda</a></li>
+    <li><a href="#promising">Why this is promising</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="meta">A reading guide, not a lecture — built by Yan for session&nbsp;1, 2026-07-02</div>
+  <h1>From Black Boxes to a Thesis</h1>
+  <div class="lede">A march through Hartshorne, Chapters IV and V, aimed at an undergraduate thesis and at building the one thing more theorems won't give you: mileage on real surfaces.</div>
+</header>
+
+<div class="roadmap-wrap">
+  <svg viewBox="0 0 900 150" width="100%" role="img" aria-label="module roadmap">
+    <line x1="90" y1="55" x2="810" y2="55" stroke="#d9cdf5" stroke-width="3"/>
+    <!-- nodes -->
+    <g font-family="-apple-system,sans-serif">
+      <!-- M0 -->
+      <circle cx="90" cy="55" r="20" fill="#7C3AED"/>
+      <text x="90" y="61" text-anchor="middle" font-size="13" fill="#fff" font-weight="700">M0</text>
+      <text x="90" y="95" text-anchor="middle" font-size="12.5" fill="#3B0764" font-weight="600">Contract</text>
+      <text x="90" y="111" text-anchor="middle" font-size="11" fill="#8b7fae">tomorrow</text>
+      <!-- M1 -->
+      <circle cx="210" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="210" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M1</text>
+      <text x="210" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Vocabulary</text>
+      <text x="210" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">on demand</text>
+      <!-- M2 -->
+      <circle cx="330" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="330" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M2</text>
+      <text x="330" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Surfaces (V)</text>
+      <text x="330" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">planned</text>
+      <!-- M3 -->
+      <circle cx="450" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="450" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M3</text>
+      <text x="450" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Ledger</text>
+      <text x="450" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">planned</text>
+      <!-- M4 -->
+      <circle cx="570" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="570" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M4</text>
+      <text x="570" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Dual unlock</text>
+      <text x="570" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">planned</text>
+      <!-- M5 -->
+      <circle cx="690" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="690" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M5</text>
+      <text x="690" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Curves II</text>
+      <text x="690" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">planned</text>
+      <!-- M6 -->
+      <circle cx="810" cy="55" r="18" fill="#fff" stroke="#c9bff0" stroke-width="2.5"/>
+      <text x="810" y="60" text-anchor="middle" font-size="12" fill="#8b7fae" font-weight="700">M6</text>
+      <text x="810" y="95" text-anchor="middle" font-size="12.5" fill="#5b5568">Thesis</text>
+      <text x="810" y="111" text-anchor="middle" font-size="11" fill="#a79cc4">not started</text>
+    </g>
+  </svg>
+  <div class="legend">
+    <span><i class="dot on"></i> in progress</span>
+    <span><i class="dot off"></i> planned / not started</span>
+  </div>
+  <div class="cap">Update this diagram by hand as sessions happen — it's meant to be a living status page, not a fixed plan.</div>
+</div>
+
+<p>This page is not a substitute for Hartshorne's <em>Algebraic Geometry</em> (GTM&nbsp;52) — it's the map. Reading Chapters II and III start to finish before reaching a single surface would spend most of a year proving lemmas whose payoff isn't yet visible. This guide takes a deliberately narrow slice of <strong>Chapter IV (curves)</strong> — just Riemann–Roch and Hurwitz — and then goes straight into <strong>Chapter V (surfaces)</strong>, the actual center of gravity. Only after surfaces are standing on their own, and after the Hodge-theory/cohomology unlock, does the guide loop back to the rest of Chapter IV: embeddings, elliptic curves, the canonical curve. Wherever an argument needs a theorem from Chapter II or III that hasn't been built yet, this guide names it, marks it a <strong>black box</strong>, and keeps moving. The black boxes don't disappear — they get logged, and once surfaces are built we go back and open the load-bearing ones from two independent directions at once.</p>
+
+<hr class="div">
+
+<section id="stand">
+  <h2>Where you stand</h2>
+  <p>You arrive at this book unusually well prepared — just not in the way most people expect "prepared for algebraic geometry" to look. You already know affine schemes, and you've read four books that, on the surface, look unrelated to Hartshorne but are quietly exactly what its Chapter III needs, dressed in different clothes.</p>
+
+  <table>
+    <tr><th>Book</th><th>What it gives you</th><th>Where it resurfaces here</th></tr>
+    <tr><td>Atiyah–Macdonald</td><td>Rings, modules, localization, primary decomposition</td><td>The commutative algebra underneath every affine chart of a scheme</td></tr>
+    <tr><td>do Carmo, <em>Riemannian Geometry</em></td><td>Curvature, geodesics, Gauss–Bonnet</td><td>The analytic picture behind self-intersection numbers and the adjunction formula</td></tr>
+    <tr><td>Bott–Tu, <em>Differential Forms in Algebraic Topology</em></td><td>De Rham cohomology, the Čech–de Rham double complex, spectral sequences, characteristic classes</td><td>Literally the toolkit Chapter III builds algebraically, in analytic disguise</td></tr>
+    <tr><td>Huybrechts, <em>Complex Geometry: An Introduction</em> (through ch.&nbsp;2)</td><td>Complex manifolds, holomorphic vector bundles, divisors and line bundles</td><td>Stops right before §3.2 "Hodge Theory on Kähler Manifolds" — the analytic route to Serre duality</td></tr>
+  </table>
+
+  <p>None of that is a coincidence. do Carmo and Bott–Tu are, in disguise, the analytic side of exactly the cohomological machinery Hartshorne develops algebraically in Chapter III. That correspondence is the whole premise of the two-route strategy described below.</p>
+
+  <div class="box promise">
+    <span class="lbl">The actual gap</span>
+    It isn't more theorems — it's <strong>research obstruction</strong>: the experience of deciding what's true about an object by playing with it, rather than by looking up the theorem that settles it. Nothing on the reading list above trains that. Living inside two chapters of concrete geometry does.
+  </div>
+</section>
+
+<section id="bet">
+  <h2>The bet: geometry before machinery</h2>
+  <p>Chapter IV covers divisors on curves, the Riemann–Roch theorem, the Hurwitz formula for ramified covers, embeddings into projective space, elliptic curves, and the classification of curves in <span>&#x1D53D;³</span>. Chapter V covers intersection theory on a surface, ruled surfaces, blow-ups (Hartshorne calls them "monoidal transformations"), the beginning of the classification of surfaces, birational transformations, and classical examples — cubic surfaces, del Pezzo surfaces.</p>
+  <p>Read straight through Chapters II and III first, and a full year can go by before a single interesting surface appears. Read IV and V first — treating II and III as reference material, consulted only when a specific black box demands it — and week one already has a real object on the table.</p>
+  <p>The risk is real and worth naming honestly: both chapters lean on Chapter III constantly. Riemann–Roch for curves is proved using Serre duality and the cohomology of line bundles; the existence of the intersection pairing on a surface, and Riemann–Roch for surfaces, need the same machinery plus intersection theory. You cannot read IV–V as fully self-contained. What you <em>can</em> do is use the theorems as black boxes on first contact, and go back for the proofs once you know why they matter — which is the entire point of the method below.</p>
+</section>
+
+<section id="method">
+  <h2>The method: black-box-first</h2>
+  <p>The good news is that this is not a shortcut invented for this guide — it's how Hartshorne's own Chapter V is written.</p>
+
+  <div class="box def">
+    <span class="lbl">Theorem (Hartshorne V.1) — existence and uniqueness of the intersection pairing</span>
+    <p>Let <span>&#x1D54F;</span> be a nonsingular projective surface over an algebraically closed field. There is a <strong>unique</strong> pairing
+    <span>Div(&#x1D54F;) &times; Div(&#x1D54F;) &rarr; &#x2124;</span>, written <span>(C, D) &#x21A6; C&middot;D</span>, such that:</p>
+    <ul>
+      <li>if <em>C</em> and <em>D</em> are nonsingular curves meeting transversally, <em>C</em>&middot;<em>D</em> equals the number of points in <em>C</em>&nbsp;&cap;&nbsp;<em>D</em>;</li>
+      <li>it is symmetric: <em>C</em>&middot;<em>D</em> = <em>D</em>&middot;<em>C</em>;</li>
+      <li>it is additive in each argument;</li>
+      <li>it depends only on the linear equivalence classes of <em>C</em> and <em>D</em>.</li>
+    </ul>
+    <p style="margin-bottom:0">The construction of this pairing — the part that actually needs cohomology — comes <em>after</em> the theorem is stated. On a first pass, you use the four properties exactly as Hartshorne's own reader does.</p>
+  </div>
+
+  <div class="box example">
+    <span class="lbl">Worked example — why the axioms alone are already enough</span>
+    <p style="margin-bottom:0">Let <em>L</em> &sub; <span>&#x1D53D;&sup2;</span> be a line. What is <em>L</em>&middot;<em>L</em>? You can't count points of <em>L</em>&nbsp;&cap;&nbsp;<em>L</em> directly — that's not a transverse intersection. Instead, pick a different line <em>L&prime;</em> linearly equivalent to <em>L</em> (any two lines in <span>&#x1D53D;&sup2;</span> are linearly equivalent, and two distinct lines meet transversally in exactly one point). Then
+    <span class="eq-wrap">$$L\cdot L = L\cdot L' \quad(\text{linear-equivalence invariance})\quad = \#(L\cap L') = 1.$$</span>
+    One line of reasoning, no cohomology, and it already tells you self-intersection is a real, computable invariant.</p>
+  </div>
+
+  <p>Every time an argument needs something not yet built — Serre duality, the existence of this very pairing, the fact that cohomology of a coherent sheaf on a projective variety is finite-dimensional — name it, log it, and move on. A running log needs only three columns:</p>
+
+  <table>
+    <tr><th>Black box</th><th>Where it's needed</th><th>Planned unlock route</th></tr>
+    <tr><td>Existence of the intersection pairing</td><td>Any self-intersection computation, from session 1 onward</td><td>Algebraic: Cech cohomology construction (Hartshorne V.1). Analytic: Chern–Weil curvature integral</td></tr>
+    <tr><td>Serre duality</td><td>Riemann–Roch, both for curves and surfaces</td><td>Algebraic: residue pairing on <span>H&sup1;(X, &omega;<sub>X</sub>)</span>. Analytic: Hodge star + harmonic representatives</td></tr>
+    <tr><td>Riemann–Roch's own proof</td><td>Every genus and dimension computation in Chapter IV</td><td>Algebraic: Euler characteristic + Serre duality. Analytic: index-theorem flavor via Hodge decomposition</td></tr>
+    <tr><td>&hellip; (grows as we read)</td><td></td><td></td></tr>
+  </table>
+</section>
+
+<section id="labor">
+  <h2>Two routes, one comparison</h2>
+  <p>The thesis is not "read Hartshorne." It's the comparison of two independent proofs of the same black box — because you two happen to be equipped for exactly the two sides, and each side now has an actual book behind it.</p>
+
+  <div class="box promise">
+    <span class="lbl">Main target</span>
+    Not "cover more of Hartshorne." The target is the short list of black boxes that IV and V keep invoking — Serre duality, Riemann–Roch's own proof, the existence of the intersection pairing, adjunction. Both routes below point at exactly that list, from opposite directions.
+  </div>
+
+  <div class="split">
+    <div class="who student">
+      <h4>Student — algebraic route</h4>
+      <p style="margin:.1em 0 .6em; font-size:.85em; color:var(--muted)">Primary source: <strong>Hartshorne, Chapter III</strong> — the very chapter this plan skips on first pass, read now with a reason to want each theorem.</p>
+      <ul>
+        <li>Čech cohomology of sheaves on a Noetherian space</li>
+        <li>Cohomology of <span>&Oscr;(d)</span> on <span>&#x1D53D;<sup>n</sup></span> by explicit complex</li>
+        <li>Serre duality via the residue/trace map</li>
+        <li>Riemann–Roch derived from Euler characteristic + Serre duality</li>
+        <li>Intersection numbers via Fulton's deformation to the normal cone</li>
+      </ul>
+    </div>
+    <div class="who yan">
+      <h4>Yan — analytic / Hodge route</h4>
+      <p style="margin:.1em 0 .6em; font-size:.85em; color:var(--muted)">Primary source: <strong>Huybrechts, <em>Complex Geometry: An Introduction</em></strong> — the appendix on harmonic theory (Riemannian Hodge theorem), then §3.2 "Hodge Theory on Kähler Manifolds," picking up exactly where his reading stopped.</p>
+      <ul>
+        <li>Dolbeault cohomology <span>H<sup>p,q</sup><sub>&#8706;&#772;</sub></span></li>
+        <li>Harmonic representatives via Hodge theory</li>
+        <li>Serre duality as Hodge-star / &#8706;&#772;-Poincaré duality</li>
+        <li>Riemann–Roch on a Riemann surface via the Hodge decomposition</li>
+        <li>Adjunction and self-intersection via Chern–Weil curvature</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>It runs in both directions: the student leads because homological algebra and spectral sequences (Bott–Tu) are already close to fluent for him, while Hodge theory is a gap for him — and, honestly, for Yan too, so Huybrechts's appendix is the shared starting point rather than a lecture one-way. Teaching happens both ways: two books, two proofs, one shared target.</p>
+</section>
+
+<hr class="div">
+
+<section id="modules">
+  <h2>Module map</h2>
+  <p>Seven stages, from tomorrow's first black box to a finished comparative write-up.</p>
+
+  <h3 id="m0">M0 — Contract & first black box <span class="status progress">session 1 — tomorrow</span></h3>
+  <p>The whole first session is one board, one axiom system, one number: state the black-box-first plan explicitly, put the intersection-number axioms up, verify <span>L&middot;L = 1</span> live, and state Riemann–Roch for curves without proof. Full script in <a href="#session1">Session 1 agenda</a> below.</p>
+
+  <h3 id="m2">M2 — Chapter IV fast pass: curves <span class="status planned">planned</span></h3>
+  <p>Riemann–Roch is used immediately, not proved:</p>
+  <div class="box def">
+    <span class="lbl">Theorem (Riemann–Roch for curves)</span>
+    <p style="margin-bottom:0">For a divisor <em>D</em> on a smooth projective curve of genus <em>g</em>, with canonical divisor <em>K</em> and <span>&#x2113;(D) := dim H&#x2070;(X, &Oscr;(D))</span>:
+    <span class="eq-wrap">$$\ell(D) - \ell(K-D) = \deg D + 1 - g.$$</span></p>
+  </div>
+  <p>Two immediate uses: on <span>&#x1D53D;&sup1;</span> (<em>g</em>&nbsp;=&nbsp;0), this recovers <span>h&#x2070;(&Oscr;(d)) = d+1</span> for <span>d \ge 0</span> almost for free. On an elliptic curve (<em>g</em>&nbsp;=&nbsp;1, <em>K</em>&nbsp;=&nbsp;0), it collapses to <span>&#x2113;(D) = \deg D</span> for any effective <em>D</em>&nbsp;&ne;&nbsp;0 — the fact used to embed elliptic curves in projective space. The gap between a naive dimension count and the Riemann–Roch answer <em>is</em> the first real black box: it's exactly Serre duality's correction term <span>&#x2113;(K-D)</span>.</p>
+
+  <div class="box def">
+    <span class="lbl">Degree–genus formula, via adjunction</span>
+    <p>For a smooth plane curve <em>C</em> of degree <em>d</em>, adjunction gives <span>K_C = (K_{\mathbb P^2} + C)|_C = \mathcal O(d-3)|_C</span>, so <span>\deg K_C = d(d-3)</span>. Since <span>\deg K_C = 2g-2</span>:</p>
+    <p class="eq-wrap" style="margin-bottom:0">$$g = \frac{(d-1)(d-2)}{2}.$$</p>
+  </div>
+
+  <p>The Hurwitz formula extends the same idea to ramified covers <span>f: C \to C'</span> of degree <em>n</em>:
+  <span class="eq-wrap">$$2g_C - 2 = n(2g_{C'}-2) + \sum_P (e_P - 1).$$</span>
+  Elliptic curves are also the natural bridge onward — moduli of curves, arithmetic geometry — the material a master's-level course builds on next.</p>
+
+  <h3 id="m3">M3 — Chapter V fast pass: surfaces <span class="status planned">planned</span></h3>
+  <p>This is the actual center of gravity: the objects that make surfaces feel real, and worth a thesis.</p>
+
+  <p><strong>Blow-ups.</strong> Blowing up a point on a smooth surface <em>X</em> produces <span>\pi: \widetilde X \to X</span> with exceptional divisor <em>E</em>&nbsp;&cong;&nbsp;<span>&#x1D53D;&sup1;</span>, satisfying <span>E^2 = -1</span> and
+  <span class="eq-wrap">$$K_{\widetilde X} = \pi^*K_X + E.$$</span>
+  The algebraic construction is already on file as the <code>deformation-to-normal-cone</code> brick; what's new here is the picture do Carmo never gave you — what curvature concentrates on when you blow up a point.</p>
+
+  <p><strong>Castelnuovo's criterion.</strong> Any curve <em>E</em>&nbsp;&sub;&nbsp;<em>X</em> with <span>E \cong \mathbb P^1</span> and <span>E^2=-1</span> — a "(&minus;1)-curve" — is exactly the exceptional divisor of some blow-down. This is the tool used to find <strong>minimal models</strong>: every smooth projective surface is a finite sequence of blow-ups of a surface with no (&minus;1)-curves, and minimal models are classified by Kodaira dimension — the Enriques–Kodaira classification, the natural horizon just past this thesis.</p>
+
+  <div class="box promise">
+    <span class="lbl">A bridge worth pausing on — Noether's formula</span>
+    For a smooth projective surface, <span class="eq-wrap">$$\chi(\mathcal O_X) = \tfrac{1}{12}\big(K_X^2 + \chi_{\text{top}}(X)\big).$$</span>
+    The left side is algebraic (an Euler characteristic of a sheaf); the right side mixes an intersection number with the topological Euler characteristic — exactly the kind of algebra/topology bridge Bott–Tu already primed you to expect.
+  </div>
+
+  <p><strong>Cubic surfaces and the 27 lines.</strong> See <a href="#anchor-cubic">the anchor section below</a> for the full picture — it's rich enough to carry a thesis by itself.</p>
+
+  <h3 id="m4">M4 — Black-box ledger compiled <span class="status later">not started — after M2/M3</span></h3>
+  <p>Once the geography from M2–M3 is built, sit down together and list every black box actually used. Expect at least: Serre duality, finiteness of cohomology, Riemann–Roch's own proof, the adjunction formula, and existence of the intersection pairing. Triage the list — 2 or 3 become the thesis's real content; the rest stay honestly cited.</p>
+
+  <h3 id="m5">M5 — Dual unlock <span class="status later">not started</span></h3>
+  <p>For each chosen black box, both routes get worked out independently (see <a href="#labor">Two routes, one comparison</a>) and then checked against each other for consistency. This is where the thesis stops being exposition and starts being a documented piece of understanding.</p>
+
+  <h3 id="m6">M6 — Synthesis: the thesis <span class="status later">not started — depends on M4</span></h3>
+  <p>A comparative write-up of the 2–3 dual-unlocked black boxes, anchored on one concrete surface. Not an exposition of Hartshorne — a cross-checked account of <em>why</em> the load-bearing theorems behind that surface are true.</p>
+</section>
+
+<hr class="div">
+
+<section id="anchors">
+  <h2>Thesis anchors — three live options</h2>
+  <p>Any of these is a legitimate undergraduate thesis. The choice is his, made together after M3 — not tomorrow.</p>
+
+  <h3 id="anchor-cubic">Cubic surfaces & the 27 lines</h3>
+  <p>A smooth cubic surface <span>X \subset \mathbb P^3</span> is isomorphic to <span>\mathbb P^2</span> blown up at six points in general position (no three collinear, not all six on a conic). Its Picard group has rank 7, with basis <span>H, E_1,\dots,E_6</span> (<em>H</em> the pullback of a line, <span>E_i</span> the exceptional divisors), and intersection form
+  <span class="eq-wrap">$$H^2=1,\quad E_i^2=-1,\quad H\cdot E_i = 0,\quad E_i\cdot E_j = 0\ (i\neq j).$$</span>
+  The 27 lines split into three families of classes: the six <span>E_i</span> themselves; the fifteen classes <span>H - E_i - E_j</span> (strict transforms of lines through two of the six points); and the six classes <span>2H - E_1-\cdots-E_6+E_i</span> (strict transforms of conics through five of the six points, omitting one). <span>6+15+6=27</span>.</p>
+  <div class="box promise">
+    <span class="lbl">Why it's more than a computation</span>
+    The incidence pattern of the 27 lines has a symmetry group equal to the Weyl group <span>W(E_6)</span>, of order 51840 — acting on <span>\mathrm{Pic}(X)</span> as exactly the orthogonal group preserving the intersection form on <span>K_X^{\perp}</span>, which is the <span>E_6</span> root lattice. A 19th-century enumerative-geometry fact turns out to encode one of the exceptional Lie groups. Self-contained, classical, and strong enough to anchor a real thesis on its own.
+  </div>
+
+  <h3>Hirzebruch / ruled surfaces</h3>
+  <p>The Hirzebruch surface <span>F_n = \mathbb P(\mathcal O_{\mathbb P^1} \oplus \mathcal O_{\mathbb P^1}(n)) \to \mathbb P^1</span> is a <span>\mathbb P^1</span>-bundle carrying a distinguished section of self-intersection <span>-n</span>; together with <span>F_0 = \mathbb P^1\times\mathbb P^1</span>, these are exactly the ruled surfaces over <span>\mathbb P^1</span>. This anchor connects directly to do Carmo's curvature background and to two bricks already on file — <code>relative-canonical-bundle</code> and <code>direct-image</code> — since a ruled surface is literally the projectivization of a rank-2 pushforward.</p>
+
+  <h3>Blow-ups & minimal models</h3>
+  <p>The broadest option: build up the machinery of (&minus;1)-curves and Castelnuovo's criterion toward the classification of minimal surfaces by Kodaira dimension. Most "research obstruction" flavored of the three, and the longest runway — best suited if there's more than one semester to work with.</p>
+</section>
+
+<hr class="div">
+
+<section id="session1">
+  <h2>Session 1 agenda — tomorrow, 2026-07-02</h2>
+  <p>Six movements: state the two theorems, walk the corollaries up to the surprising one, take one glimpse further out than the thesis actually needs, reveal that everything just used was a black box, then zoom out to the attack plan and the big picture. Content in the order to present it.</p>
+
+  <h3>1. Riemann–Roch and Serre duality, stated (not proved)</h3>
+  <div class="box def">
+    <span class="lbl">Riemann–Roch (curves)</span>
+    <p style="margin-bottom:0">For a divisor <em>D</em> on a smooth projective curve <em>X</em> of genus <em>g</em>, with canonical divisor <em>K</em> and <span>\ell(D) := \dim H^0(X,\mathcal O(D))</span>:
+    <span class="eq-wrap">$$\ell(D) - \ell(K-D) = \deg D + 1 - g.$$</span></p>
+  </div>
+  <div class="box def">
+    <span class="lbl">Serre duality (curves)</span>
+    <p style="margin-bottom:0">$$h^1(X,\mathcal O(D)) = \ell(K-D).$$
+    So the "correction term" in Riemann–Roch is not a fudge factor — it's the dimension of another, dual space of sections. Riemann–Roch and Serre duality are really one package: dimension count in, dimension count out.</p>
+  </div>
+
+  <h3>2. Five corollaries — walk them in this order</h3>
+  <ol>
+    <li>
+      <strong>Genus <em>is</em> a space of differentials.</strong> Set <span>D=0</span>: <span>\ell(\mathcal O)=1</span> (only constants are global functions on a projective curve), so <span>1-\ell(K)=1-g</span>, giving
+      <span class="eq-wrap">$$\ell(K) = g.$$</span>
+      The genus — a priori just a number from topology or a degree-2 formula — turns out to literally count independent holomorphic 1-forms. This is the fact do Carmo and Bott–Tu already have the vocabulary for: a holomorphic differential is a very concrete object.
+    </li>
+    <li>
+      <strong>Above a threshold, the correction term vanishes.</strong> If <span>\deg D &gt; 2g-2</span>, then <span>\deg(K-D)&lt;0</span>, so <span>\ell(K-D)=0</span> (a divisor of negative degree has no sections), leaving the exact formula
+      <span class="eq-wrap">$$\ell(D) = \deg D + 1 - g.$$</span>
+      Serre duality's correction term only ever matters in the finite window <span>0 \le \deg D \le 2g-2</span> — call divisors outside that window <em>non-special</em>. This is the cleanest possible answer to "why do we even need Serre duality:" it's a bounded-size patch, not a permanent tax.
+    </li>
+    <li>
+      <strong>Riemann–Roch is an embedding machine.</strong> If <span>\deg D \ge 2g+1</span>, the linear system <span>|D|</span> is very ample and embeds <span>X \hookrightarrow \mathbb P^{\deg D - g}</span>. Dimension-counting turns into "here is a projective space your curve sits inside, and here is exactly which one."
+    </li>
+    <li>
+      <strong>Elliptic curves are cubics.</strong> <span>g=1 \Rightarrow K=0</span> (an elliptic curve carries a nowhere-vanishing holomorphic 1-form — itself worth pausing on). Take <span>D=3P</span> for a point <em>P</em>: <span>\deg D = 3 &gt; 2g-2=0</span>, so <span>\ell(D)=3+1-1=3</span>, embedding the curve in <span>\mathbb P^2</span> as the familiar Weierstrass cubic.
+    </li>
+    <li>
+      <strong>The hook: every genus-2 curve is hyperelliptic.</strong> For <span>g=2</span>: <span>\ell(K)=2</span>, <span>\deg K = 2</span>. The canonical map <span>\varphi_K</span> lands in <span>\mathbb P^{1}</span> with degree <span>2</span> — so <em>every</em> genus-2 curve is a double cover of <span>\mathbb P^1</span>, branched at 6 points (Riemann–Hurwitz: <span>2(2)-2 = 2(2(0)-2)+\#\text{branch pts}</span>). This is not true for most curves of genus <span>\ge 3</span> — genus 2 is forced into it. A three-line argument from a theorem stated without proof produces a fact that's genuinely surprising.
+    </li>
+  </ol>
+
+  <h3>3. A glimpse further out — Nevanlinna theory</h3>
+  <p>Riemann–Hurwitz, just used above, is a statement about finite, honest covers of <em>compact</em> Riemann surfaces — completely algebraic. It has a transcendental twin worth showing him precisely because it isn't needed for the thesis: it's here to demonstrate that the same invariant governs a totally different world.</p>
+  <div class="box promise">
+    <span class="lbl">Nevanlinna's Second Main Theorem</span>
+    <p>For a nonconstant meromorphic function <span>f:\mathbb C \to \mathbb P^1</span> and distinct points <span>a_1,\dots,a_q \in \mathbb P^1</span>:
+    <span class="eq-wrap">$$(q-2)\,T(r,f) \;\le\; \sum_{j=1}^{q} \bar N(r,a_j) \;+\; S(r,f),$$</span>
+    where <span>T(r,f)</span> is the Nevanlinna characteristic (growth rate, standing in for "degree" now that <span>\mathbb C</span> isn't compact so there's no honest degree to count), <span>\bar N(r,a_j)</span> counts <span>a_j</span>-points without multiplicity, and <span>S(r,f)</span> is genuinely small.</p>
+    <p style="margin-bottom:0">The constant <strong>2</strong> here is not a coincidence — it's <span>\chi(\mathbb P^1)=2</span>, the same <strong>2</strong> sitting inside "<span>2g-2</span>" for <span>g=0</span> in the Riemann–Hurwitz formula above. Two unrelated-looking worlds — finite algebraic covers, and entire transcendental maps from <span>\mathbb C</span> — and the identical invariant falls out of both.</p>
+  </div>
+  <p>The corollary he already half-knows: <strong>Picard's little theorem</strong> — a nonconstant entire function omits at most one finite value — is exactly the <span>q=3</span> case of the defect relation implied by the Second Main Theorem. A first-year complex analysis fact turns out to be a shadow of the same formula governing ramified covers in algebraic geometry. (One further step, worth naming but not developing: Vojta's dictionary carries this same "2" into Diophantine approximation and arithmetic geometry — heights, effective finiteness theorems — so this one constant sits at a genuine crossroads of complex analysis, algebraic geometry, and number theory.)</p>
+
+  <h3>4. The reveal</h3>
+  <p>Everything above used two theorems that were never proved — just stated and trusted. That's the method, made visible in real time: name the black box, log it, keep the geometry moving. Open the black-box log together and enter the first two rows: Riemann–Roch, Serre duality — statement used, where it mattered (five times already, in one sitting), route to unlock later (see below).</p>
+
+  <h3>5. What we attack next, and the big picture</h3>
+  <p>This is the actual pitch, in three parts:</p>
+  <ol>
+    <li><strong>A real math result, done live.</strong> Everything in parts 1–3 above — five corollaries and a transcendental cousin, out of two unproved theorems. That already happened; point back at it.</li>
+    <li><strong>An analytic approach and an algebraic approach to the fundamentals.</strong> Two independent books, two independent proofs of the same short list of theorems — see <a href="#labor">the attack plan</a>: he works from <strong>Hartshorne III</strong> (Čech cohomology, the residue pairing, Riemann–Roch from Euler characteristics), Yan works from <strong>Huybrechts</strong> (harmonic theory, then §3.2 on Kähler manifolds — Dolbeault, Hodge decomposition, Serre duality as Hodge duality). Neither route is "the real one" — they're checked against each other.</li>
+    <li><strong>The target is named, not open-ended.</strong> Not "read more of Hartshorne" — the target is the specific short list of black boxes that Chapters IV and V keep invoking: Serre duality, Riemann–Roch's own proof, existence of the intersection pairing, adjunction. See <a href="#modules">the module map</a> and <a href="#anchors">thesis anchors</a> — the same black-box-first move that just worked for curves (Chapter IV) repeats for surfaces (Chapter V), and lands on a chosen concrete surface as an actual thesis.</li>
+  </ol>
+
+  <h3>6. Assign</h3>
+  <p>Read Hartshorne IV.1 (statement of Riemann–Roch) and V.1 (statement of the intersection-number axioms — see <a href="#method">the method section</a>); keep the black-box log going; bring 2–3 surfaces that look interesting for the eventual anchor. Do <strong>not</strong> assign Chapter III yet — the first debt payment happens at M4, not before.</p>
+</section>
+
+<section id="promising">
+  <h2>Why this is promising</h2>
+  <p>Done well, this thesis sits right at the entrance to first-year master's algebraic geometry — that's the point of building it this way rather than as a survey of Hartshorne.</p>
+  <p>It produces a real deliverable, not reading notes: a cross-checked, two-proof understanding of the theorems behind one concrete surface. It uses what he already has instead of asking for more of it — do Carmo and Bott–Tu stop being background he once read and become the analytic lens he applies himself, under guidance. And it leaves an obvious next step already visible on the map: classification of surfaces, moduli of curves, K3 surfaces, or the transcendental side glimpsed via Nevanlinna theory and hyperbolicity — depending on which direction his master's study takes. Whichever it is, this thesis is the on-ramp, not a detour before the real work starts.</p>
+</section>
+
+<footer>
+  Companion files: <code>_thesis-plan-index.md</code> (working ledger) and this page's source is hand-authored — edit directly and no rebuild step is required.
+</footer>
+
+</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>

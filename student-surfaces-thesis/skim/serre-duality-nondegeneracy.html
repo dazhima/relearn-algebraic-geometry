@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>III.7 · Serre duality's nondegeneracy — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span>black box #2 · feeds V.1</span></nav>
+
+<h1>Serre duality's nondegeneracy — black box #2</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">Hartshorne III.7 (algebraic) · Hodge star (analytic)</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+Session 1 built the pairing itself, honestly, on the board. What remains cited — the actual black box — is one word: <em>perfect</em>.</div>
+
+<h2>What this is — and what exactly is still owed</h2>
+<p>Be precise about what's black and what isn't. Session 1 §3 constructed the pairing $H^1(X,\mathcal O(D)) \times H^0(X,\mathcal O(K-D)) \to \mathbb C$ concretely: a class in $H^1$ is Mittag-Leffler data (principal parts), pair it against a differential by multiplying and summing residues, and well-definedness <em>was derived</em> — it's the residue theorem, proved by Stokes on the board. What was <strong>not</strong> derived is nondegeneracy: that this pairing detects <em>everything</em> — no nonzero class pairs to zero with all partners. That single word carries $h^1(D) = \ell(K-D)$, hence Riemann–Roch's correction term, hence most of session 1.</p>
+<div class="callback">Why nondegeneracy is the real content: well-definedness says the pairing makes sense; perfectness says $H^1$ has <em>no ghost classes</em> — everything invisible to differentials is actually realizable Mittag-Leffler data. The sharp criterion of §4 (residues against all $\omega\in H^0(K)$ vanish $\iff$ realizable) is exactly perfectness, used.</div>
+
+<h2>Where it sits</h2>
+<p>Underneath everything: Riemann–Roch (both session-1 derivations invoke it), and — on the surface floor — V.1's intersection pairing construction. Its two unlock routes are the project's two tracks in miniature: algebraic = Hartshorne III.7 (dualizing sheaf, residue/trace map, $\operatorname{Ext}$'s); analytic = <a href="hodge-theorem.html">the Hodge theorem</a> (duality via the Hodge star on harmonic forms, where perfectness becomes $\langle\alpha, *\bar\alpha\rangle = \|\alpha\|^2 \ne 0$ — visibly nondegenerate).</p>
+
+<h2>The delta</h2>
+<p>The analytic route makes nondegeneracy nearly free <em>once harmonic representatives exist</em> — pairing a harmonic form against its own conjugate-star gives its norm. So the entire difficulty migrates into the Hodge theorem (which is why these two black boxes are one story). The algebraic route keeps the difficulty local and explicit: the residue map $H^1(X, K_X) \to \mathbb C$ must be shown to be an isomorphism, and the pairing's perfectness is checked by a duality induction. Two genuinely different distributions of the same total labor — a clean test case for the "same proof or different proofs?" question posed at the hinge.</p>
+
+<h2>Key statement</h2>
+<div class="stmt">$X$ smooth projective curve, $K$ canonical. The residue pairing $$H^1(X,\mathcal O(D)) \times H^0(X,\mathcal O(K-D)) \to H^1(X,K_X) \xrightarrow{\ \mathrm{res}\ } \mathbb C$$ is <strong>perfect</strong>: it induces $H^1(X,\mathcal O(D)) \cong H^0(X,\mathcal O(K-D))^*$. (Surface case, used by V.1: the same with $\omega_X$ and $H^2$.)</div>
+
+<h2>To go further</h2>
+<p>Sources: Hartshorne III.7 (the student's route); Hodge theory via <a href="hodge-theorem.html">bb #3</a> (Yan's route). The pairing's construction: <code>board-script.md</code> §3–4.</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub separating the three layers (construction √ / well-definedness √ / perfectness cited); E-entry: verify perfectness by hand on $\mathbb P^1$ with $D = -2[\infty]$, where both sides are 1-dimensional and the residue is computable.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

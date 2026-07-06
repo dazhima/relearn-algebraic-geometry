@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A2 · Positive line bundles, Chern–Weil — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="gh-projective-space-O1.html">A1</a> → <strong>A2</strong> → <a href="gh-kodaira-vanishing.html">A3</a></span></nav>
+
+<h1>Positive line bundles and Chern–Weil</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">G–H ch.1 · curve case: board-script §6</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+Orientation only. The curve case of this was touched live in session 1; nothing here has been reconstructed in general.</div>
+
+<h2>What this is</h2>
+<p>Put a Hermitian metric $h$ on a holomorphic line bundle $L$ — a smoothly varying inner product on the fibers. There is then a unique connection compatible with both the metric and the holomorphic structure (the <strong>Chern connection</strong> — its whole job is to exist and be unique), and its curvature $\Theta_h$ is a $(1,1)$-form on the manifold. Locally, if the metric is $e^{-2\varphi}$ in a trivialization, then $\Theta_h = 2\partial\bar\partial\varphi$ up to constants — curvature is literally the complex Hessian of the weight.</p>
+<p>$L$ is <strong>positive</strong> if some metric makes $\Theta_h$ positive definite everywhere. This is exactly the hypothesis of the <a href="kodaira-embedding-theorem.html">Kodaira embedding theorem</a>.</p>
+
+<h2>Where it sits</h2>
+<p>Second step of the analytic route: <a href="gh-projective-space-O1.html">A1</a> supplies the universal example ($\mathcal O(1)$ with Fubini–Study). Everything downstream consumes it: <a href="gh-kodaira-vanishing.html">A3</a> assumes positivity, <a href="demailly-singular-metrics.html">A5</a> weakens it, and the <a href="gaga-positive-ample.html">GAGA bridge</a> must match it with Hartshorne's "ample."</p>
+
+<h2>The delta</h2>
+<p><strong>Chern–Weil:</strong> the total curvature is a topological invariant. For any metric $h$ on $L$ over a compact curve, $\frac{i}{2\pi}\int_X \Theta_h = \deg L$ — an integer, independent of $h$. This is the bridge between two books you own: Bott–Tu's characteristic classes ($c_1(L)$ as a cohomology class) and do Carmo's curvature (an honest 2-form you integrate). Positivity is a <em>metric</em> condition, but whether it's achievable is a <em>topological</em> one.</p>
+<div class="callback">Session 1 used exactly this, aimed at $K_X$: $\deg K_X = 2g-2$ is do Carmo's Gauss–Bonnet "one level up" (board-script §6, with the $\kappa$-vs-$K_X$ notation warning). And Sketch A — redistribute curvature by solving $\Delta\psi = c-\rho_0$ — is the statement "positivity is achievable iff the topological number is positive," on a curve.</div>
+
+<h2>Key statement</h2>
+<div class="stmt">$c_1(L) = \big[\tfrac{i}{2\pi}\Theta_h\big] \in H^2(M;\mathbb R)$, independent of $h$. $L$ positive $\iff$ $c_1(L)$ contains a positive $(1,1)$-form. Curves: possible $\iff \deg L > 0$. Higher dimension: the content of the Kodaira theorem is that this metric condition already buys a projective embedding.</div>
+
+<h2>To go further</h2>
+<p>Source: G–H ch.1 (Chern classes / positivity sections). Local model to keep in mind: $\varphi$ strictly plurisubharmonic $\iff$ curvature positive — the word <em>plurisubharmonic (psh)</em> will be everywhere at the conference.</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub + two E-entries — recompute the curve-case Chern–Weil integral (redo Sketch A yourself), and check $\omega_{FS}>0$ on $\mathbb P^1$ explicitly. General $n$: extract the Chern-connection uniqueness proof from G–H.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 2 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skim layer — all topics</title>
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:2em 1.5em 4em}
+h1{font-size:1.5em;margin:.2em 0 .1em}
+.meta{color:var(--muted);font-size:.9em;margin-bottom:1.2em}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.8em 1.1em;font-size:.9em;margin:0 0 1.8em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.3em}
+h2{font-size:1.05em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .6em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:.7em}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:10px;padding:.7em .95em;background:#fff}
+.card.planned{opacity:.55;background:#fafafa}
+.card .t{font-weight:700;font-size:.95em}
+.card .s{font-size:.8em;color:var(--muted);margin-top:.15em}
+.chip{display:inline-block;font-size:.62em;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.16em .55em;border-radius:20px;margin-top:.4em;margin-right:.3em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.stub{background:#fff;color:var(--purple-dark);border:1.5px solid var(--purple)}
+.chip.attack{background:var(--red);color:#fff}
+.chip.partial{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple)}
+.chip.plan{background:#eee;color:#888}
+.chip.mic{background:#1e293b;color:#fff}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.85em;color:var(--purple-dark)}
+footer{color:var(--muted);font-size:.85em;margin-top:2.5em;border-top:1px solid var(--line);padding-top:1em}
+</style>
+</head>
+<body><div class="wrap">
+<h1>Skim layer — the network, clickable</h1>
+<div class="meta">Recognition-mode pages over <code>_kodaira-network-index.md</code> · companion to <a href="../kodaira-hinge.html">the graph</a></div>
+
+<div class="banner"><span class="lbl">What these pages are — and are not</span>
+Each page answers: what is this object, where does it sit, what's the one new thing, what's the picture. None contains a proof, and reading them changes nothing in the catalog — a module starts existing when its stub is written, and counts as understood only after computing with it. Use this layer to know what's going on; use the module notes to actually own it.</div>
+
+<h2>The hinge</h2>
+<div class="grid">
+  <div class="card"><a href="kodaira-embedding-theorem.html"><span class="t">Kodaira Embedding Theorem</span></a><div class="s">curvature positivity ⇒ projective embedding — the node everything routes through</div><span class="chip stub">theorem stub</span></div>
+  <div class="card"><a href="gaga-positive-ample.html"><span class="t">GAGA: positive ↔ ample</span></a><div class="s">the unverified bridge between the two routes' vocabularies</div><span class="chip new">⟦NEW⟧</span></div>
+</div>
+
+<h2>Analytic route (Yan leads)</h2>
+<div class="grid">
+  <div class="card"><a href="gh-projective-space-O1.html"><span class="t">A1 · $\;$Projective space, O(1), Fubini–Study</span></a><div class="s">the universal positive bundle</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="gh-positive-line-bundles.html"><span class="t">A2 · Positive bundles, Chern–Weil</span></a><div class="s">curvature ↔ degree; the theorem's hypothesis</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="gh-kodaira-vanishing.html"><span class="t">A3 · Kodaira vanishing</span></a><div class="s">the surjectivity machine — the predicted "new nonskippable ingredient"</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="berndtsson-dbar-existence.html"><span class="t">A4 · ∂̄-existence via L²</span></a><div class="s">Hörmander's estimate; the engine room</div><span class="chip partial">partial</span><span class="chip mic">🎤</span></div>
+  <div class="card"><a href="demailly-singular-metrics.html"><span class="t">A5 · Singular hermitian metrics</span></a><div class="s">through the blow-up wall; door to the horizon</div><span class="chip new">⟦NEW⟧</span></div>
+</div>
+
+<h2>Algebraic route + curve floor (student leads)</h2>
+<div class="grid">
+  <div class="card"><a href="hartshorne-ii6.html"><span class="t">II.6 · Divisors</span></a><div class="s">Weil vs Cartier; Cl ≅ Pic — session 1 §2, schemified</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="hartshorne-ii7.html"><span class="t">II.7 · Projective morphisms</span></a><div class="s">one machine, four settings — B1–B4 live here</div><span class="chip stub">stub · 16 entries</span></div>
+  <div class="card"><a href="hartshorne-iv3-curve-embedding.html"><span class="t">IV.3 · Very ampleness on curves</span></a><div class="s">black box #1 — the n=1 case, the network's unit test</div><span class="chip attack">under attack</span></div>
+  <div class="card"><a href="serre-duality-nondegeneracy.html"><span class="t">III.7 · Serre duality's nondegeneracy</span></a><div class="s">black box #2 — the word "perfect" is the debt</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="hodge-theorem.html"><span class="t">GH-ch0 · The Hodge theorem</span></a><div class="s">black box #3 — M5b's core; harmonic representatives</div><span class="chip new">⟦NEW⟧</span></div>
+  <div class="card"><a href="chow-theorem.html"><span class="t">GH-ch1 · Chow's theorem</span></a><div class="s">black box #5 — analytic in ℙᴺ is automatically algebraic</div><span class="chip new">⟦NEW⟧</span></div>
+</div>
+
+<h2>Destination &amp; horizon — round 2, pages not yet written</h2>
+<div class="grid">
+  <div class="card planned"><span class="t">V.1 · Intersection pairing</span><div class="s">destination floor</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">V.3 · Blow-ups</span><div class="s">destination floor · Rees ≠ normal cone</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">GH-ch3 · Currents, Chern classes</span><div class="s">destination floor · door to the horizon</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">GH-ch4 · Surfaces, analytic</span><div class="s">destination floor</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">Multiplier ideals 𝒥(φ)</span><div class="s">horizon · bayreuth.pdf on disk</div><span class="chip plan">planned</span><span class="chip mic">🎤</span></div>
+  <div class="card planned"><span class="t">OT87 · L² extension</span><div class="s">horizon · engine for Guan–Zhou</div><span class="chip plan">planned</span><span class="chip mic">🎤</span></div>
+  <div class="card planned"><span class="t">Nadel90 · Nadel vanishing</span><div class="s">horizon · = A3, singular version</div><span class="chip plan">planned</span><span class="chip mic">🎤</span></div>
+  <div class="card planned"><span class="t">Demailly92 · Regularization of currents</span><div class="s">horizon · Yan's program</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">DP04 · Kähler cone</span><div class="s">horizon · math/0105176</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">Boucksom04 · Divisorial Zariski</span><div class="s">horizon · math/0204336</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">DK01 · Semicontinuity</span><div class="s">horizon · math/9910118</div><span class="chip plan">planned</span></div>
+  <div class="card planned"><span class="t">GZ15 · Strong openness</span><div class="s">horizon · 1311.3781</div><span class="chip plan">planned</span></div>
+</div>
+
+<footer>Skim layer · statuses mirror <code>../_kodaira-network-index.md</code> — that file is the source of truth. Hand-authored, no build step.</footer>
+</div></body></html>

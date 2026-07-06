@@ -1,0 +1,153 @@
+# Lecture 08 — Finitely generated modules (continued)
+
+*MATH 464, Rice University, Spring 2020 · January 31, 2020*
+
+---
+
+## 1. Finitely generated modules (Continued)
+Last time we ended with definitions of finitely generated and finitely presented modules.
+**Example 1.1**. There are modules which are finitely generated but not finitely presented. As men-
+tioned in class, these concepts coincide for modules over Noetherian rings (which time permitting
+we will discuss later this semester–see https://stacks.math.columbia.edu/tag/00IK if you’re
+interested now), so examples will necessarily require A to be non-Notherian. For one example, let
+A = Z[x1, x2, x3, ...], the polynomial ring in infinitely many variables. Then Z \simeq A/(x1, x2, ...) is a
+finitely generated A-module which is not finitely presented, since the module of relations (x1, x2, ....)
+is not finitely generated. You could do the same thing with A = C[-1, 1], the ring of continuous
+functions on the interval [-1, 1] \subsetR. Then m0 = {f \inC[-1, 1, ] : f(0) = 0} is a maximal ideal,
+and A/m0 is a finitely generated A-module which is not finitely presented. (Note that m0 is not
+finitely generated: if it were, you could construct a function vanishing at 0 which converges to 0
+slower than all of the generators (a contradiction). Alternatively, you could show that being finitely
+generated means it is principal, and again arrive at a contradiction.)
+In fact, these examples are of the same flavor: pick your favorite non-Noetherian ring A, which
+necessarily has a non-finitely generated ideal I. Then A/I is a finitely generated A-module which
+is not finitely presented.
+### 1.1. Cayley-Hamilton on steroids. Assuming that an A-module is finitely generated has im-
+mediate useful consequences.
+**Theorem 1.2** *(Cayley-Hamilton).* Let M be a finitely generated A-module. Let a \subseteqA be an ideal,
+and suppose that φ: M \toM is an element of EndA(M) such that
+$$
+φ(M) \subseteqaM :=
+$$
+nX
+$$
+aimi : ai \ina, mi \inM
+$$
+o
+\subseteqM.
+Then φ satisfies a monic polynomial of the form
+$$
+φn + an-1φn-1 + \cdot \cdot \cdot + a1φ + a0 = 0,
+$$
+ai \ina
+The above equality should be understood as an equality of elements in EndA(M).
+$\square$
+The key to proving this theorem is to think of M not just as an A-module, but as an A[φ]-module.
+*Proof.* Let {x1, . . . , xn} be a generating set for M. Then by hypothesis
+φ(xi) =
+n
+X
+j=1
+aijxj
+aij \ina.
+
+Using the usual Kronecker delta, we can rewrite this as
+n
+X
+j=1
+δijφ(xj) =
+n
+X
+j=1
+aijxj,
+and moving everything to one side we get
+n
+X
+j=1
+$$
+(δijφ -aij)(xj) = 0
+$$
+Let T \inMatn(A[φ]) be the matrix whose ij-th entry is δijφ -aij. Then the above equality may
+be rewritten
+T · (x1 . . . , xn)t = 0.
+Let adj(T) be the adjoint matrix of T. Then
+adj(T) · T · (x1 . . . , xn)t = 0,
+so
+det(T) · In · (x1 . . . , xn)t = 0.
+In other words, det(T) annihilates xi for every i. This means that det(T) = 0 as an element of
+EndA(M). This determinant is our monic polynomial!
+$\square$
+**Remark 1.3**. If A = a = k is a field then the polynomial we constructed in the proof is the
+characteristic polynomial of the linear transformation φ. This way we recover the Cayley-Hamilton
+theorem from linear algebra.
+**Corollary 1.4**. Let M be a finitely generated A-module. Let a \subseteqA be an ideal such that aM = M.
+Then there is an x \inA with x ≡1 mod a such that xM = 0.
+*Proof.* Take φ := idM in the theorem. Then x = 1 + an-1 + · · · + a0 does the job.
+$\square$
+Now we come to one of the most fundamental results of commutative algebra. This result is
+everywhere, though it’s often working behind the scenes when you apply a theorem that in turn
+depends on it.
+**Corollary 1.5** *(Nakayama’s Lemma).* Let M be a finitely generated A-module, and let a \subseteqA be
+an ideal contained in the Jacobson radical R of A. Then aM = M =$\Rightarrow$M = 0.
+*Proof.* By Corollary 1.4, there is an x \inM such that x ≡1 mod a and such that xM = 0. Since
+x -1 \ina \subseteqR, we know that 1 -(x -1)y is a unit in A for every y \inA. Take y = -1. Then x is
+$$
+a unit and so xM = 0 implies that M = 0.
+$$
+$\square$
+**Corollary 1.6**. Let M be a finitely generated A-module, and let a \subseteqA be an ideal contained in the
+Jacobson radical R of A. Let N \subseteqM be a submodule such that M = aM + N. Then M = N.
+*Proof.* First, note that a(M/N) = (aM + N)/N. Therefore, the hypotheses imply that M/N =
+$$
+(aM + N)/N = a(M/N). Now apply Nakayama’s lemma to M/N.
+$$
+$\square$
+Here is a neat “application.”
+Suppose M is a finitely generated A-module over a local ring
+(A, m). For example A could be C[[x]] and m = (x). Suppose you suspect that some elements
+x1, . . . , xm in M generate M. How would you prove this? Well, M/mM is a finite dimensional
+
+A/m-vector space. We claim that if the images ¯x1, . . . , ¯xm span M/mM, then the original elements
+generate M. To see this, let N be the submodule of M generated by x1, . . . , xm. The composition
+N \toM \toM/mM is surjective so N + mM = M. Applying the corollary above, we get that
+M = N, so we are done! (The hypothesis that A is local means that R(A) = m.)
+---
+## 2. Tensor products: preview
+Let’s start with a couple of motivating questions.
+(1) Let V be a C-vector space. We can think of V also as an R-vector space by forgetting
+scalar multiplication by non-real numbers. The question is: can we go the other way? More
+precisely, given a real vector space W is there a way to “expand” W into a vector space
+that allows sclara multiplication by C?
+(2) In a seemingly unrelated direction: let V1 and V2 be two finite-dimensional vector spaces
+over Q, of respective dimensions d1 amd d2. We know that V1$\oplus$V2 is a vector space equipped
+$$
+with maps V1 \toV1 \oplusV2 and V2 \toV1 \oplusV2, of dimension d1 + d2. So in a sense, we can put
+$$
+vector spaces together in such a way that their dimensions add up. But is there a “product
+vector space”? I.e., is there a vector space Wthat we can build up naturally from V1 and
+V2 whose dimension is d1d2?
+For example, take V1 = Q(
+√
+2) and V2 = Q(
+√
+3): these are two 2-dimensional Q-vector
+spaces, with (for example) respective bases {1,
+√
+$$
+2} and {1,
+$$
+√
+3}. It seems that W here
+should be Q(
+√
+2,
+√
+3), since this is a 4-dimensional Q-vector space. A possible basis for W
+is of course {1,
+√
+2,
+√
+3,
+√
+6}, which we obtain by taking pairwise products of the bases of
+V1 and V2.
+We take a cue from this example to see what W might look like in general.

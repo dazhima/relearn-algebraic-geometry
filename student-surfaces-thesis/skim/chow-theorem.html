@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GH-ch1 · Chow's theorem — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span>black box #5 · feeds <a href="gaga-positive-ample.html">GAGA bridge</a></span></nav>
+
+<h1>Chow's theorem — black box #5</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">G–H ch.1 · used in board-script §8</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+The last step of session 1's embedding argument — cited in one breath, never derived.</div>
+
+<h2>What this is</h2>
+<p>Anything compact and analytic sitting inside projective space is automatically algebraic: a closed <em>analytic</em> subvariety of $\mathbb P^N$ (locally cut out by convergent power series) is in fact cut out by <em>polynomials</em>. In session 1 §8 this was the closer: the linear system $|nP|$ gave a holomorphic embedding $X \hookrightarrow \mathbb P^{n-g}$, and Chow upgraded the image from "complex-analytic curve in $\mathbb P^{n-g}$" to "projective algebraic curve" — finishing the proof that a compact Riemann surface is an algebraic curve.</p>
+
+<h2>Why it should feel surprising</h2>
+<p>Transcendental data has infinitely many degrees of freedom; polynomials have finitely many. The theorem says projective space is so rigid that the gap closes by itself. Contrast the non-compact picture you know well: in $\mathbb C^2$, the graph of $w = e^z$ is a perfectly good closed analytic subvariety and is nowhere near algebraic. Compactness plus the positivity of $\mathcal O(1)$ (the <a href="gh-projective-space-O1.html">A1</a> geometry) is what forbids such things in $\mathbb P^N$.</p>
+<div class="callback">Same phenomenon, one dimension down, already on your board: a holomorphic function on a <em>compact</em> curve is constant (max modulus — used in §7's base case). Chow is the statement that on compact projective objects, "analytic" keeps collapsing to "algebraic" in every codimension.</div>
+
+<h2>Where it sits</h2>
+<p>Needed by the curve-floor argument (<a href="hartshorne-iv3-curve-embedding.html">bb #1</a>'s §8 use) and by the <a href="gaga-positive-ample.html">GAGA bridge</a> — Chow is the prototype and easiest instance of the GAGA principle, and any honest treatment of "positive ↔ ample" passes nearby. G–H prove it via the proper mapping theorem / the structure of analytic sets; Serre's GAGA reproves and vastly generalizes it sheaf-theoretically.</p>
+
+<h2>Key statement</h2>
+<div class="stmt"><strong>Chow.</strong> Every closed analytic subvariety $V \subset \mathbb P^N(\mathbb C)$ is algebraic: $V = Z(F_1,\dots,F_m)$ for homogeneous polynomials $F_i$. Consequently a holomorphic map between projective varieties is a morphism, and holomorphic embeddings into $\mathbb P^N$ have algebraic images.</div>
+
+<h2>To go further</h2>
+<p>Source: G–H ch.1 (analytic varieties / Chow's theorem section). The one-line use: <code>board-script.md</code> §8. Bigger picture: Serre, <em>GAGA</em> (1956) — relevant when the <a href="gaga-positive-ample.html">bridge module</a> opens.</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub with G–H's proof skeleton (extend the analytic set over the vertex of the cone in $\mathbb C^{N+1}$, apply the proper mapping/Remmert–Stein step, conclude by homogeneity); E-entry: check the $e^z$ non-example carefully — where exactly does compactness enter.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Kodaira Embedding Theorem — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.stub{background:#fff;color:var(--purple-dark);border:1.5px solid var(--purple)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.warn{background:var(--red-bg);border:1.5px dashed var(--red);border-radius:10px;padding:.7em 1em;margin:.8em 0;font-size:.92em}
+.routes{display:grid;grid-template-columns:1fr 1fr;gap:.9em;margin:1em 0}
+@media(max-width:600px){.routes{grid-template-columns:1fr}}
+.route{border-radius:10px;padding:.8em 1em;font-size:.9em}
+.route.an{background:var(--purple-bg);border:1px solid #ddd3f5}
+.route.al{background:#fdf9f3;border:1px solid #eadfc8}
+.route h3{margin:.1em 0 .4em;font-size:.92em;font-family:-apple-system,sans-serif}
+.route.an h3{color:var(--purple-dark)}.route.al h3{color:var(--amber)}
+.route ol{margin:.2em 0 0;padding-left:1.3em}
+.route li{margin:.25em 0}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span>the hinge itself</span></nav>
+
+<h1>The Kodaira Embedding Theorem — the hinge</h1>
+<div class="chips"><span class="chip stub">theorem stub exists — neither route assembled</span><span class="chip src">G–H p.181, transcribed 2026-07-06</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+The full theorem note is <code>Kodaira embedding theorem.md</code> (Statement + honestly-cited Idea of Proof). This page is its clickable summary. Nothing on either route below is proved yet.</div>
+
+<h2>What this is, and why it's the center of the whole network</h2>
+<p>The theorem converts a <em>differential-geometric</em> hypothesis into an <em>algebraic-geometric</em> conclusion: curvature positivity in, projective embedding out. It is why "positively curved" and "algebraic" are nearly synonymous words for compact complex manifolds. For this project it is load-bearing three times over: it specializes at $n=1$ to the very fact session 1 used to embed a curve (<a href="hartshorne-iv3-curve-embedding.html">bb #1</a>); Hartshorne 7.16(c) cites it to keep blow-ups quasi-projective, so the surface chapters stand on it; and it has two genuinely independent proofs — matching the thesis's dual-unlock design exactly.</p>
+
+<h2>Key statement</h2>
+<div class="stmt"><strong>(G–H p.181.)</strong> $M$ compact complex manifold, $L \to M$ a positive line bundle. Then there is $k_0$ such that for all $k \ge k_0$, the map $$\iota_{L^k}: M \to \mathbb P^N,\qquad N = \dim H^0(M, L^k) - 1,$$ defined by a basis of sections of $L^k$, is well-defined and an <strong>embedding</strong>. (Algebraic restatement via the <a href="gaga-positive-ample.html">unverified bridge</a>: ample $\Rightarrow$ some power very ample $\Rightarrow$ closed immersion.)</div>
+
+<h2>The two routes — every step clickable, every step open</h2>
+<div class="routes">
+  <div class="route an"><h3>Analytic (Yan leads)</h3>
+    <ol>
+      <li><a href="gh-projective-space-O1.html">A1 — $\mathbb P^n$, $\mathcal O(1)$, Fubini–Study</a></li>
+      <li><a href="gh-positive-line-bundles.html">A2 — positivity, Chern–Weil</a></li>
+      <li><a href="gh-kodaira-vanishing.html">A3 — Kodaira vanishing</a></li>
+      <li><a href="berndtsson-dbar-existence.html">A4 — $\bar\partial$ via $L^2$</a> (partial)</li>
+      <li><a href="demailly-singular-metrics.html">A5 — singular metrics</a> (surfaces)</li>
+    </ol>
+    Strategy (cited): reduce embedding to two surjectivities via exact sequences; both follow from vanishing. Coherent-ideal-sheaf subtlety for $\dim > 1$ — see A3's warning.</div>
+  <div class="route al"><h3>Algebraic (student leads)</h3>
+    <ol>
+      <li><a href="hartshorne-ii7.html">B1 — sections ⇒ morphism (7.1)</a></li>
+      <li><a href="hartshorne-ii7.html">B2 — immersion criterion (7.3)</a></li>
+      <li><a href="hartshorne-ii7.html">B3 — ample ⇒ power very ample (7.6)</a> — under attack</li>
+      <li><a href="hartshorne-ii7.html">B4 — blowing up (D8, 7.13–7.17)</a> (surfaces)</li>
+    </ol>
+    Strategy (cited): no vanishing theorem at all — "ample" is defined by generation, and 7.6 is a direct affine-patching construction.</div>
+</div>
+
+<div class="warn"><strong>The open question, kept open on purpose:</strong> are these the same proof wearing different clothes, or structurally different arguments reaching the same conclusion? The theorem note explicitly defers this until both routes exist. Resist answering early — that comparison is thesis material.</div>
+
+<h2>To go further</h2>
+<p>The theorem note has the precise statement, the cited Idea of Proof for both routes, and the three checks (the $n=1$ recovery, the bridge, the open question). Source: <code>materials/Griffiths-harris/ch1.pdf</code> p.181 (PDF p.53).</p>
+<div class="up"><strong>What upgrades this:</strong> nothing directly — a theorem node advances only when its modules do. Next unit of work per the note: pick one route and open its first unbuilt module, Step-0 questionnaire first.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 3 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

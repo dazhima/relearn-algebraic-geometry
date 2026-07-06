@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A3 · Kodaira vanishing — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.warn{background:var(--red-bg);border:1.5px dashed var(--red);border-radius:10px;padding:.7em 1em;margin:.8em 0;font-size:.92em}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="gh-positive-line-bundles.html">A2</a> → <strong>A3</strong> → <a href="berndtsson-dbar-existence.html">A4</a></span></nav>
+
+<h1>Kodaira vanishing — the theorem the embedding reduces to</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">G–H pp.148–160 — located, not extracted</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+This is the predicted "one genuinely new nonskippable ingredient" from <code>dependency-map.html</code>, in person. Statement level only.</div>
+
+<h2>What this is</h2>
+<p>A vanishing theorem kills cohomology: it says $H^q = 0$ under a positivity hypothesis. Why anyone would want that: session 1 §4 built the exact frame — $H^1$ is the obstruction to patching local data into global sections. The embedding argument needs certain restriction maps to be <em>surjective</em> (sections that separate points and tangent vectors), each surjectivity sits in a long exact sequence, and the map is surjective as soon as the next $H^1$ in the sequence dies. Vanishing theorems are surjectivity machines.</p>
+
+<h2>Where it sits</h2>
+<p>Third step of the analytic route: consumes <a href="gh-positive-line-bundles.html">A2</a>'s positivity and the <a href="hodge-theorem.html">Hodge theorem</a>'s harmonic machinery; feeds directly into the <a href="kodaira-embedding-theorem.html">embedding theorem</a>'s proof, and — on the horizon — upgrades to Nadel vanishing once singular metrics (<a href="demailly-singular-metrics.html">A5</a>) and multiplier ideals arrive.</p>
+
+<h2>The delta</h2>
+<p>You already proved a vanishing theorem, twice: session 1's $\deg D > 2g-2 \Rightarrow H^1(X,\mathcal O(D))=0$. Kodaira vanishing is its $n$-dimensional form, and the shape of the statement carries the same fingerprint: the canonical bundle appears in the statement, exactly like the $2g-2 = \deg K_X$ threshold on curves — and like the $\mathcal O(D)\otimes K_X^{-1}$ twist that §6 had to get right (the correction note in board-script: positivity is needed for $D - K_X$, not $D$ alone).</p>
+<div class="callback">Curve case dictionary: "$L$ positive" $\leftrightarrow$ "$\deg L > 0$", and Kodaira vanishing for $K_X\otimes L$ $\leftrightarrow$ "$\deg(K+L) > 2g-2$, so $H^1=0$" — which is literally §5's four-line argument. The new content in dimension $n$ is that no degree bookkeeping is available; curvature does all the work (Bochner–Kodaira identity: positivity term beats the harmonic equation).</div>
+
+<h2>Key statement</h2>
+<div class="stmt"><strong>Kodaira vanishing.</strong> $M$ compact Kähler, $L\to M$ positive. Then $$H^q(M,\ K_M\otimes L)=0\qquad\text{for all } q>0.$$ Equivalently (Serre-duality flip): $H^q(M,L^{-1})=0$ for $q &lt; n$.</div>
+<div class="warn"><strong>Honest gap flagged in the theorem note:</strong> for the embedding, the sheaves needing vanishing are ideal sheaves $\mathscr I_{xy}(L^k)$, $\mathscr I_x^2(L^k)$ — coherent, <em>not</em> locally free when $\dim M>1$. So bare Kodaira vanishing isn't enough as stated; G–H offers coherent-sheaf machinery (ch.5) or induction via hypersurface sections, and which route they run is exactly what hasn't been extracted yet.</div>
+
+<h2>To go further</h2>
+<p>Source: <code>materials/Griffiths-harris/ch1.pdf</code>, "Some Vanishing Theorems and Corollaries," pp.148–160 (PDF pages 20–32).</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub with the precise statement chain (Bochner–Kodaira → vanishing), plus the curve-case E-entry checking it degenerates to §5's argument. The coherent-sheaf gap above becomes its own logged item, not a footnote.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 2 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

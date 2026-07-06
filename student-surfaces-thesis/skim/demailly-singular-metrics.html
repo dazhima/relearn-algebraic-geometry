@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A5 · Singular hermitian metrics — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="berndtsson-dbar-existence.html">A4</a> → <strong>A5</strong> → <a href="kodaira-embedding-theorem.html">hinge</a></span></nav>
+
+<h1>Singular hermitian metrics (Demailly)</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">materials/bayreuth.pdf — on disk · surfaces only</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+The surface-case tool. Not needed for curves; becomes load-bearing at blow-ups. Statement level only.</div>
+
+<h2>What this is</h2>
+<p>A singular hermitian metric on $L$ is $h = h_0e^{-2\varphi}$ where $h_0$ is a smooth metric and the weight $\varphi$ is merely <em>locally integrable</em> — allowed to be $-\infty$ somewhere, typically like $\log|s|$ along a divisor. The curvature is then not a smooth form but a <strong>closed positive current</strong>: a differential form with distribution coefficients (the object G–H ch.3 introduces; think of "integration along a divisor" as a legitimate $(1,1)$-form, the way Bott–Tu lets a submanifold be a de Rham class).</p>
+
+<h2>Where it sits</h2>
+<p>Last analytic step before the <a href="kodaira-embedding-theorem.html">hinge</a>, needed only for the surface half (step A5). Downstream it is the doorway to the entire horizon layer: multiplier ideals $\mathscr J(\varphi)$ are defined from these weights, Nadel vanishing is Kodaira vanishing (<a href="gh-kodaira-vanishing.html">A3</a>) for these metrics, and everything in Boucksom / Demailly–Kollár speaks this language.</p>
+
+<h2>The delta — why smooth metrics stop being enough</h2>
+<p>On a blow-up, the exceptional divisor $E$ has $E^2 = -1$: no smooth metric on the relevant bundle can be strictly positive everywhere — negativity is topologically locked in along $E$ (Chern–Weil, <a href="gh-positive-line-bundles.html">A2</a>, forbids it). Demailly's move: stop asking for smoothness. Concentrate the negativity into a singularity of the weight, keep the current positive, and run the $L^2$ machinery (<a href="berndtsson-dbar-existence.html">A4</a>) anyway — the estimates survive singular weights, that's the miracle. The price: solutions acquire mandatory vanishing along the singularity, and bookkeeping that price is exactly what multiplier ideals will do.</p>
+<div class="callback">Compare Sketch A on a curve: there, curvature could be freely redistributed because the total was positive. On a surface the total can be "positive" while a curve inside carries irreducibly negative self-intersection — redistribution hits a wall, singular weights go through it.</div>
+
+<h2>Key statement (shape to recognize)</h2>
+<div class="stmt">$L$ pseudoeffective / big $\iff$ $L$ carries a singular metric with curvature current $\ge 0$ (resp. $\ge \varepsilon\omega$). Demailly's program: replace "positive line bundle" everywhere by "singular metric with positive curvature current + control of the singularity," and the embedding/vanishing theory extends to bundles that are only <em>generically</em> positive.</div>
+
+<h2>To go further</h2>
+<p>Source: <code>materials/bayreuth.pdf</code> (Demailly, <em>Singular hermitian metrics on positive line bundles</em>) — already on disk; it also contains multiplier ideals and Nadel vanishing, i.e. the first two horizon modules live in the same paper.</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub + the canonical E-entry: the weight $\varphi = \log|z|$ on the disk — compute its curvature current (Poincaré–Lelong: $dd^c\log|z| = $ point mass), then the surface version along $E$.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 2 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

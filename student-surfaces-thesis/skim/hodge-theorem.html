@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GH-ch0 · The Hodge theorem — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span>black box #3 · feeds A3, GH-ch3, <a href="serre-duality-nondegeneracy.html">bb #2</a></span></nav>
+
+<h1>The Hodge theorem — black box #3, and M5b's core</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">G–H ch.0 (also Huybrechts App. + §3.2)</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+Borrowed ahead of schedule in session 1 to derive $g = \frac12 b_1$. This <em>is</em> the analytic track's central deposit — when M5b happens, it happens here.</div>
+
+<h2>What this is</h2>
+<p>Every de Rham cohomology class on a compact Riemannian manifold contains exactly one <strong>harmonic</strong> representative — one form killed by the Laplacian $\Delta = dd^* + d^*d$. Cohomology, a quotient (forms modulo exact forms), suddenly has canonical <em>elements</em>: you can point at the best representative instead of an equivalence class. Everything the analytic track does downstream — Dolbeault, Serre duality via the star operator, the Hodge decomposition, Kodaira's identities — starts from this one existence-and-uniqueness statement.</p>
+<div class="callback">You own the two neighbors of this theorem but not the theorem: Bott–Tu gives you de Rham cohomology with <em>no metric at all</em> (purely topological), and do Carmo gives you the metric and a Laplacian, but on functions and for different purposes. The Hodge theorem is the marriage — a metric-dependent normal form for a metric-independent object. Session 1 flagged it as "genuinely new — say so plainly," and that's still exactly right.</div>
+
+<h2>Where it sits</h2>
+<p>Feeds three places in the graph: <a href="gh-kodaira-vanishing.html">A3</a> (vanishing theorems are harmonic-theory arguments), GH-ch3 (harmonic theory for currents), and <a href="serre-duality-nondegeneracy.html">black box #2</a> (nondegeneracy of Serre duality is almost automatic once harmonic representatives exist). Session 1 used it once already: harmonic 1-forms = holomorphic ⊕ anti-holomorphic, hence $\dim H^0(\Omega^1) = \tfrac12 b_1 = g$.</p>
+
+<h2>The delta</h2>
+<p>The proof is elliptic PDE theory — the one ingredient in the whole analytic track that is neither complex analysis nor geometry: Sobolev spaces, elliptic regularity, compactness. The honest plan is to treat the <em>PDE input</em> as its own clearly-labeled citation inside the module (the way session 1 cited "the Laplacian surjects onto mean-zero functions" in Sketch A — same elliptic package, simplest instance), and reconstruct everything downstream of it. Decomposing the black box does not mean zero citations; it means knowing exactly what you're standing on.</p>
+
+<h2>Key statement</h2>
+<div class="stmt">$(M,g)$ compact oriented Riemannian: $\mathcal H^k = \ker\Delta|_{\Omega^k}$ is finite-dimensional and $$H^k_{dR}(M) \cong \mathcal H^k \quad\text{— unique harmonic representative per class,}$$ with the orthogonal decomposition $\Omega^k = \mathcal H^k \oplus d\Omega^{k-1} \oplus d^*\Omega^{k+1}$. On a Riemann surface: $\alpha$ harmonic $\iff$ $\alpha^{1,0}$ holomorphic and $\alpha^{0,1}$ anti-holomorphic.</div>
+
+<h2>To go further</h2>
+<p>Sources: G–H ch.0 (harmonic theory section); Huybrechts's appendix on harmonic theory then §3.2 is the reading order the plan originally named. The session-1 use: <code>board-script.md</code> §3 ("topological derivation").</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub isolating the elliptic-PDE citation as its own labeled entry; E-entries: harmonic 1-forms on the flat torus computed bare-hands (Fourier series — the whole theorem is visible there), and the $g=1$ check $\mathcal H^1 = \operatorname{span}\{dz, d\bar z\}$.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

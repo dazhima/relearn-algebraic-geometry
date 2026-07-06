@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>II.7 · Projective morphisms — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.stub{background:#fff;color:var(--purple-dark);border:1.5px solid var(--purple)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.warn{background:var(--red-bg);border:1.5px dashed var(--red);border-radius:10px;padding:.7em 1em;margin:.8em 0;font-size:.92em}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+.b{display:inline-block;font-size:.72em;font-weight:800;color:#fff;background:var(--amber-line);border-radius:5px;padding:.05em .45em;margin-right:.35em;vertical-align:1px;font-family:-apple-system,sans-serif}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="hartshorne-ii6.html">II.6</a> → <strong>II.7</strong> → <a href="hartshorne-iv3-curve-embedding.html">IV.3</a> · <a href="kodaira-embedding-theorem.html">hinge</a></span></nav>
+
+<h1>Projective morphisms (Hartshorne II.7) — the B-route's home</h1>
+<div class="chips"><span class="chip stub">stub exists — 16 entries, statements only</span><span class="chip src">hartshorne1977.pdf pp.148–166</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+The full statements live in <code>Hartshorne-II.7 — Projective morphisms.md</code>. Every proof there is postponed; this page only says what the machine does.</div>
+
+<h2>What this is</h2>
+<p>One machine, run in four settings. The machine (Thm 7.1): giving a morphism $X \to \mathbb P^n$ is <em>the same data</em> as giving an invertible sheaf $\mathscr L$ on $X$ plus $n{+}1$ global sections that generate it. Maps to projective space stop being geometry you find and become algebra you specify. The four settings:</p>
+<p><strong>A · Morphisms to $\mathbb P^n$</strong> — the machine itself, plus when the map is a closed immersion. <span class="b">B1</span>= Thm 7.1; <span class="b">B2</span>= Prop 7.3, the <em>separates points + separates tangent vectors</em> criterion — the actual content of "very ample."<br>
+<strong>B · Ample sheaves</strong> — $\mathscr L$ is ample if enough twisting by it makes every coherent sheaf globally generated. <span class="b">B3</span>= Thm 7.6: ample $\iff$ some power very ample. Note the definition has <em>no vanishing theorem in it</em> — this is where the algebraic and analytic routes genuinely differ in texture.<br>
+<strong>C · Linear systems</strong> — the same machine in classical clothes: divisors in $|D|$ $\leftrightarrow$ sections mod scalars, base points = where the map isn't defined.<br>
+<strong>D · Proj, $\mathbb P(\mathscr E)$, blowing up</strong> — the machine relative to a base. <span class="b">B4</span>= D8 + C12–C16: the blow-up as $\operatorname{Proj}$ of the Rees algebra, its universal property, and 7.16(c) — which <em>cites the hinge</em> to keep blow-ups quasi-projective.</p>
+<div class="callback">The kill list in <code>dependency-map.html</code> already isolated the four items of setting A/C you must actually master; the right-hand column there showed the curve case then reduces to Riemann–Roch arithmetic you own from session 1.</div>
+
+<h2>Where it sits</h2>
+<p>The entire algebraic route to the <a href="kodaira-embedding-theorem.html">hinge</a> lives inside this one note — B1–B4 are entries here, not separate files. Upstream: <a href="hartshorne-ii6.html">II.6 divisors</a> (cited, unwritten). Downstream: <a href="hartshorne-iv3-curve-embedding.html">IV.3</a> specializes it to curves, V.3 runs setting D on surfaces.</p>
+
+<h2>Status — where the trouble is</h2>
+<div class="warn"><strong>B3 (Thm 7.6) is under attack right now:</strong> the first pass hit trouble and is being checked. That's black box #1's algebraic route in progress — not a detour; this is the plan working as designed.</div>
+<div class="warn"><strong>Documented trap (do not re-trip):</strong> the blow-up is $\operatorname{Proj}\big(\bigoplus \mathscr I^d\big)$ — the <em>Rees algebra</em>. The <code>deformation-to-normal-cone</code> brick is $\operatorname{Spec}\big(\bigoplus \mathscr I^d/\mathscr I^{d+1}\big)$ — the <em>associated graded</em>. Different constructions, different objects.</div>
+
+<h2>To go further</h2>
+<p>Read the stub note itself — all 16 statements are transcribed there, close to the source. Then <code>materials/hartshorne1977.pdf</code> pp.148–166.</p>
+<div class="up"><strong>What upgrades entries here:</strong> pick <em>one</em> entry and reconstruct its proof or instantiate its example (the note says exactly this at its top). Natural first pick: C3 or C5 — they're what B2/B3 and black box #1 need.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

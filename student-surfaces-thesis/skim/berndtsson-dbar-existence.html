@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A4 · dbar-existence via L² — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.partial{background:var(--purple-bg);color:var(--purple);border:1px solid var(--purple)}
+.chip.mic{background:#1e293b;color:#fff}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><a href="gh-kodaira-vanishing.html">A3</a> → <strong>A4</strong> → <a href="demailly-singular-metrics.html">A5</a></span></nav>
+
+<h1>$\bar\partial$-existence via $L^2$ estimates</h1>
+<div class="chips"><span class="chip partial">partial — Sketches A–C done live</span><span class="chip mic">🎤 conference core</span><span class="chip src">Berndtsson, materials/7nynot.pdf · black box #4</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+The one-variable case was built on the board in session 1 (§6). Beyond one variable everything is still cited. This is the single most load-bearing phrase you will hear at the SCV conference.</div>
+
+<h2>What this is</h2>
+<p>The equation $\bar\partial u = f$ is the analyst's version of "correct a smooth object into a holomorphic one": if you can always solve it (with control on the size of $u$), you can manufacture holomorphic sections at will — take a rough candidate with the behavior you want, compute its $\bar\partial$-error, solve, subtract. Session 1's Sketch C did exactly this to build a meromorphic function with a prescribed pole.</p>
+<p><strong>Hörmander's theorem</strong> says: positivity of the weight guarantees solvability. In one variable — the version already on your board — if $\Delta\varphi > 0$ everywhere, then $\bar\partial u = f$ has a solution with $\int|u|^2e^{-\varphi} \le \int \frac{|f|^2}{\Delta\varphi}e^{-\varphi}$.</p>
+<div class="callback">The two-step proof you saw (Sketch B): one integration by parts gives the a priori inequality; Hahn–Banach + Riesz turns the inequality into a solution. No PDE machinery beyond that — the analysis is soft once the identity is right. That structure survives in all dimensions.</div>
+
+<h2>Where it sits</h2>
+<p>The engine room of the analytic route: <a href="gh-kodaira-vanishing.html">A3</a>'s vanishing is "$\bar\partial$ is solvable in the relevant degree"; <a href="demailly-singular-metrics.html">A5</a> runs the same estimates with singular weights; the horizon's Ohsawa–Takegoshi extension theorem and everything Guan–Zhou is this tool, sharpened. Hörmander's estimate is black box #4 in the log — the only one marked <em>partial</em>.</p>
+
+<h2>The delta — what's new beyond one variable</h2>
+<p>In several variables the Laplacian of the weight is replaced by the full complex Hessian $\big(\frac{\partial^2\varphi}{\partial z_j\partial\bar z_k}\big)$ — positivity now means <em>plurisubharmonic</em>, strictly — and on a manifold the integration-by-parts identity becomes the <strong>Bochner–Kodaira–Nakano identity</strong>, where the curvature of the bundle metric (A2) enters as the good term. Same skeleton as Sketch B, heavier algebra in step one. Berndtsson's notes are organized exactly along this ramp.</p>
+
+<h2>Key statement (shape to recognize)</h2>
+<div class="stmt">$(M,\omega)$ Kähler, $L$ with metric of curvature $\Theta \ge \varepsilon\omega > 0$: for every $\bar\partial$-closed $(n,1)$-form $f$ with values in $L$, there is $u$ with $\bar\partial u = f$ and $\|u\|^2_{L^2} \le \tfrac{1}{\varepsilon}\|f\|^2_{L^2}$. Positivity in, solvability out, with a constant you can track — the "with a constant" part is what the conference cares about.</div>
+
+<h2>To go further</h2>
+<p>Source: <code>materials/7nynot.pdf</code> (Berndtsson), Lecture 1 = the one-variable case already done; the manifold case is the ramp to climb. Sketches A–C live in <code>board-script.md</code> §6.</p>
+<div class="up"><strong>What upgrades this to a module:</strong> stub exists in all but name (the sketches). Missing: the Bochner–Kodaira–Nakano identity worked once by hand in two variables, and one E-entry solving $\bar\partial$ on $\mathbb C^2$ with a real weight. The one-variable material gets naturalized in, not redone.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 2 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dependency Map — Chapters IV/V against II/III</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+  :root{
+    --purple:#7C3AED; --purple-dark:#3B0764; --purple-bg:#F5F3FF;
+    --ink:#241f2e; --muted:#6b6478; --line:#e6e1f0; --paper:#fffdfb;
+    --red:#DC5B4A; --red-bg:#FFF1F0;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.6;}
+  .wrap{max-width:1220px; margin:0 auto; padding:2.6em 2em 5em}
+  h1{font-size:1.7em; font-weight:700; margin:.1em 0 .2em}
+  .meta{color:var(--muted); font-size:.92em; margin-bottom:1.4em}
+  p.lede{max-width:74ch; font-size:1.03em}
+  code{background:#f1eefb; padding:.1em .35em; border-radius:4px; color:var(--purple-dark)}
+
+  .rule{background:var(--purple-bg); border-left:5px solid var(--purple); border-radius:0 10px 10px 0;
+    padding:1em 1.4em; margin:1.6em 0 2.2em}
+  .rule .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--purple); margin-bottom:.4em}
+  .rule .two{display:flex; gap:1.4em; margin-top:.7em; flex-wrap:wrap}
+  .rule .two > div{flex:1; min-width:230px}
+  .rule .two .h{font-weight:700; font-size:.85em; margin-bottom:.2em}
+  .rule .nonskip-h{color:var(--red)}
+  .rule .skip-h{color:#666}
+
+  .legend{display:flex; gap:1.6em; font-size:.82em; color:var(--muted); margin:.5em 0 0}
+  .legend span{display:inline-flex; align-items:center; gap:.4em}
+  .swatch{width:13px;height:13px;border-radius:3px;display:inline-block}
+  .swatch.nonskip{background:var(--red)}
+  .swatch.skip{background:#ccc}
+
+  h2{font-size:1.15em; margin:2.4em 0 .3em; border-left:4px solid var(--purple); padding-left:.5em}
+
+  .flow{display:flex; align-items:flex-start; overflow-x:auto; gap:.2em; padding:1.4em .2em 2em; }
+  .stem-node{display:flex; flex-direction:column; align-items:stretch; width:205px; flex-shrink:0}
+  .stem-main{background:linear-gradient(155deg,var(--purple),#6423c9); color:#fff; border-radius:11px;
+    padding:.8em .7em; text-align:center; box-shadow:0 3px 10px rgba(124,58,237,.28)}
+  .stem-num{font-size:.68em; opacity:.85; letter-spacing:.05em}
+  .stem-title{font-size:.98em; font-weight:700; line-height:1.32; margin-top:.15em}
+  .cite{display:block; font-size:.76em; font-weight:500; opacity:.9; margin-top:.3em}
+  .stem-desc{font-size:.74em; opacity:.92; margin-top:.4em; line-height:1.3}
+
+  .connector{width:2px; background:#d9cdf5; height:16px; margin:0 auto}
+  .deps{display:flex; flex-direction:column; gap:.5em; margin-top:0}
+  .dep{border-radius:8px; padding:.5em .65em; font-size:.76em; line-height:1.35}
+  .dep .name{font-weight:700; display:block}
+  .dep .src{color:var(--muted); font-size:.86em; display:block; margin-top:.1em}
+  .dep .badge{display:inline-block; margin-top:.35em; font-size:.66em; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:.16em .5em; border-radius:20px}
+  .dep.skip{background:#f5f5f7; border:1px dashed #cfcfd6}
+  .dep.skip .badge{background:#e6e6ea; color:#767680}
+  .dep.nonskip{background:var(--red-bg); border:1.5px solid var(--red)}
+  .dep.nonskip .badge{background:var(--red); color:#fff}
+
+  .arrow{align-self:flex-start; color:#c9bff0; font-size:1.7em; padding:0 .05em; flex-shrink:0; margin-top:14px}
+
+  .loopback{margin:1.6em .2em 0; background:var(--red-bg); border:1.5px dashed var(--red); border-radius:10px;
+    padding:1em 1.3em; font-size:.92em; max-width:900px}
+  .loopback .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--red); margin-bottom:.4em}
+
+  footer{color:var(--muted); font-size:.85em; padding:2.4em 0 1em}
+  @media (max-width:640px){ .wrap{padding:1.6em 1em 4em} }
+
+  .target-node{background:linear-gradient(155deg,var(--purple),#6423c9); color:#fff; border-radius:11px;
+    padding:1em 1.3em; text-align:center; font-weight:700; font-size:1em; line-height:1.4;
+    box-shadow:0 3px 10px rgba(124,58,237,.28); margin-top:1.2em; max-width:640px}
+  .target-node .sub{display:block; font-weight:400; font-size:.82em; opacity:.9; margin-top:.35em}
+  .down-connector{width:2px; height:20px; background:#d9cdf5; margin:0 auto}
+  .branch-row{display:flex; gap:1.4em; flex-wrap:wrap; margin-top:0}
+  .branch{flex:1; min-width:300px; border-radius:11px; padding:1em 1.2em}
+  .branch.kill{background:var(--red-bg); border:1.5px solid var(--red)}
+  .branch.reuse{background:#f5f5f7; border:1px dashed #cfcfd6}
+  .branch-h{font-weight:700; font-size:.88em; margin-bottom:.7em}
+  .branch-h.nonskip-h{color:var(--red)}
+  .branch-h.skip-h{color:#666}
+  .branch .dep{margin-bottom:.5em}
+  .payoff{background:#f0fdf4; border-left:4px solid #15803d; border-radius:0 10px 10px 0; padding:1em 1.3em; margin-top:1.6em; max-width:900px}
+  .payoff .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:#15803d; margin-bottom:.4em}
+  .headsup{background:var(--red-bg); border:1.5px dashed var(--red); border-radius:10px; padding:1em 1.3em; margin-top:1em; max-width:900px; font-size:.92em}
+  .headsup .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--red); margin-bottom:.4em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="meta">Companion to <code>thesis-guide.html</code> — built for showing him the plan, 2026-07-02</div>
+  <h1>Where the black boxes actually come from</h1>
+  <p class="lede">The main stem is the reading path: Riemann–Roch and Riemann–Hurwitz on curves, then straight into surfaces, then back to curves once the machinery is unlocked. Every stem node cites specific results from Chapters II and III — this is the map of those citations, and which ones are safe to leave as black boxes versus which ones aren't.</p>
+
+  <div class="rule">
+    <span class="lbl">The one rule that decides skippable vs. nonskippable</span>
+    <p style="margin:.2em 0">A citation is <strong>skippable</strong> if trusting it without proof still leaves you with the full geometric picture — you can compute, compare, and reason about the object, you just haven't verified <em>why</em> a number or an existence statement is true. A citation is <strong>nonskippable</strong> if trusting it blindly removes the geometric picture itself — most often, anything that <em>embeds an object into projective space</em>. Black-boxing an embedding doesn't just skip a proof, it skips having any concrete mental picture of the curve or surface at all.</p>
+    <div class="two">
+      <div>
+        <div class="h nonskip-h">Nonskippable — must actually understand</div>
+        Very ampleness / embedding criteria, for curves and for surfaces. This is the one category worth stopping for immediately, not logging for later.
+      </div>
+      <div>
+        <div class="h skip-h">Skippable — safe long-term black box</div>
+        Serre duality, Riemann–Roch for surfaces, Noether's formula, adjunction, cohomology-and-base-change, finiteness, the blow-up construction, Castelnuovo's criterion. All computational or existence machinery — trust the output, keep moving, unlock later at leisure.
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="swatch nonskip"></i> nonskippable</span>
+      <span><i class="swatch skip"></i> skippable</span>
+    </div>
+  </div>
+
+  <h2>The flow</h2>
+  <div class="flow">
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 1</div>
+        <div class="stem-title">Riemann–Roch</div>
+        <div class="cite">Hartshorne IV.1</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep nonskip"><span class="name">Very ampleness (deg D &ge; 2g+1 embeds the curve)</span><span class="src">II.7, proof via III</span><span class="badge">nonskippable</span></div>
+        <div class="dep skip"><span class="name">Serre duality</span><span class="src">III.7</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Canonical sheaf / differentials</span><span class="src">II.8</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Finiteness of cohomology</span><span class="src">III.5</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 2</div>
+        <div class="stem-title">Riemann–Hurwitz</div>
+        <div class="cite">Hartshorne IV.2</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep skip"><span class="name">Different / ramification divisor</span><span class="src">II.8</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Degree of finite morphisms, pushforward</span><span class="src">II.6 / III</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 3</div>
+        <div class="stem-title">Intersection theory on a surface</div>
+        <div class="cite">Hartshorne V.1</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep skip"><span class="name">Existence &amp; uniqueness of the pairing</span><span class="src">III (V.1's own proof)</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Riemann–Roch for surfaces + Noether's formula</span><span class="src">III.5, III.7</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Serre duality (surface case)</span><span class="src">III.7</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Adjunction formula</span><span class="src">consequence of RR-surfaces</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 4</div>
+        <div class="stem-title">Ruled surfaces</div>
+        <div class="cite">Hartshorne V.2</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep skip"><span class="name">Cohomology &amp; base change (Grauert-type)</span><span class="src">III.12</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Direct image sheaves for &#x1D53D;&sup1;-bundles</span><span class="src">III.8</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 5</div>
+        <div class="stem-title">Blow-ups</div>
+        <div class="cite">Hartshorne V.3</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep skip"><span class="name">Blow-up = Proj(Rees algebra)</span><span class="src">II.7 — <code>deformation-to-normal-cone</code> brick on file</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Canonical bundle formula, K&#771; = &pi;*K + E</span><span class="src">II.8</span><span class="badge">skippable</span></div>
+        <div class="dep skip"><span class="name">Castelnuovo's contractibility criterion</span><span class="src">III, cohomology vanishing</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 6</div>
+        <div class="stem-title">Classification (start) &amp; concrete embeddings</div>
+        <div class="cite">Hartshorne V.4, V.6</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep nonskip"><span class="name">Very ampleness / embedding of a surface (e.g. cubic surface via &minus;K)</span><span class="src">II.7, proof via III</span><span class="badge">nonskippable</span></div>
+        <div class="dep skip"><span class="name">Plurigenera / pluricanonical systems</span><span class="src">III cohomology — deferred, advanced</span><span class="badge">skippable</span></div>
+      </div>
+    </div>
+
+    <div class="arrow">&rarr;</div>
+
+    <div class="stem-node">
+      <div class="stem-main">
+        <div class="stem-num">STEM 7</div>
+        <div class="stem-title">Back to curves: embeddings, canonical curve</div>
+        <div class="cite">Hartshorne IV.3&ndash;IV.5</div>
+      </div>
+      <div class="connector"></div>
+      <div class="deps">
+        <div class="dep nonskip"><span class="name">Very ampleness, reused from Stem 1 &mdash; now provable</span><span class="src">II.7 / III</span><span class="badge">nonskippable</span></div>
+        <div class="dep nonskip"><span class="name">Canonical embedding (non-hyperelliptic curves)</span><span class="src">II.7 / III — base-point-free + separates points</span><span class="badge">nonskippable</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="loopback">
+    <span class="lbl">The loop back, made explicit</span>
+    Stem 7 is not new content — it's Stem 1's very-ampleness citation, reused, except this time it's provable rather than assumed, because Stems 3&ndash;6 already forced the Serre-duality / cohomology unlock along the way. The elliptic-curve-as-cubic fact from session 1 gets revisited here too, now with a real proof instead of a trusted formula.
+  </div>
+
+  <h2>Zooming in: the very-ampleness kill list</h2>
+  <p class="lede">This is the one node from Stem 1 marked nonskippable — expanded into its own dependency chain, so the reading plan for Chapter II is a specific list of items, not "read II.7." The punchline: most of what makes very ampleness feel hard is actually Stem 1's Riemann–Roch, already unlocked. The genuinely new material is four items.</p>
+
+  <div class="target-node">
+    deg&nbsp;D&nbsp;&ge;&nbsp;2g+1&nbsp;&#8658;&nbsp;D very ample &#8658; closed immersion X &#8618; &#x1D53D;<sup>deg D &minus; g</sup>
+    <span class="sub">Hartshorne IV.3, built on the general embedding criterion of II.7</span>
+  </div>
+  <div class="down-connector"></div>
+
+  <div class="branch-row">
+    <div class="branch kill">
+      <div class="branch-h nonskip-h">Kill list — must actually master (Chapter II)</div>
+      <div class="dep nonskip"><span class="name">Linear system |D| and its associated morphism to &#x1D53D;<sup>n</sup></span><span class="src">II.7 — a basis of H&#x2070;(D) &#8614; a map to projective space</span><span class="badge">nonskippable</span></div>
+      <div class="dep nonskip"><span class="name">Base-point-free &#8658; the morphism is everywhere defined</span><span class="src">II.7</span><span class="badge">nonskippable</span></div>
+      <div class="dep nonskip"><span class="name">Separates points + separates tangent vectors &#8660; closed immersion</span><span class="src">II.7 — this is the actual content of "very ample"</span><span class="badge">nonskippable</span></div>
+      <div class="dep nonskip"><span class="name">What a closed immersion of schemes means</span><span class="src">II.3 / II.5 — topological embedding + surjective on &Oscr;<sub>X</sub></span><span class="badge">nonskippable</span></div>
+    </div>
+    <div class="branch reuse">
+      <div class="branch-h skip-h">Already unlocked — reduces straight to Stem 1</div>
+      <div class="dep skip"><span class="name">Separates points &#8660; h&#x2070;(D&minus;P&minus;Q) = h&#x2070;(D) &minus; 2</span><span class="src">restatement of the kill-list criterion, in numbers</span><span class="badge">skippable</span></div>
+      <div class="dep skip"><span class="name">Separates tangent vectors &#8660; h&#x2070;(D&minus;2P) = h&#x2070;(D) &minus; 2</span><span class="src">same restatement</span><span class="badge">skippable</span></div>
+      <div class="dep skip"><span class="name">Both hold automatically: deg(D&minus;P&minus;Q), deg(D&minus;2P) &ge; 2g&minus;1 &gt; 2g&minus;2</span><span class="src">Riemann&ndash;Roch + non-speciality &mdash; already in hand from Stem 1</span><span class="badge">skippable</span></div>
+    </div>
+  </div>
+
+  <div class="payoff">
+    <span class="lbl">The actual reading assignment</span>
+    Four items, not a new theory: linear systems and their associated morphisms, base-point-freeness, the separates-points/separates-tangent-vectors criterion, and what a closed immersion of schemes is. Once those are genuinely understood, checking that <span>deg D &ge; 2g+1</span> works is two lines of arithmetic you've already got from Stem 1 — the whole right-hand column is a rerun, not new work.
+  </div>
+
+  <div class="headsup">
+    <span class="lbl">Heads up for Stem 6 (surfaces)</span>
+    The kill list on the left carries over unchanged — same four items, same criterion. The right-hand column doesn't: a surface has no single genus/degree formula forcing <span>H&sup1;</span> to vanish, so the curve's free ride off Riemann&ndash;Roch's non-special range won't repeat there. Expect one genuinely new nonskippable ingredient at Stem 6 — a vanishing theorem (Serre vanishing, or Kodaira vanishing) — to close the surface embedding argument.
+  </div>
+
+  <footer>
+    Read together with <code>thesis-guide.html</code> (the prose walkthrough) and <code>_thesis-plan-index.md</code> (the working ledger). This page is the map of citations only — it doesn't restate the theorems themselves.
+  </footer>
+
+</div>
+</body>
+</html>

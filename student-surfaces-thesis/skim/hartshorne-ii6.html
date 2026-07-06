@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>II.6 · Divisors — skim</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+:root{--purple:#7C3AED;--purple-dark:#3B0764;--purple-bg:#F5F3FF;--ink:#241f2e;--muted:#6b6478;--line:#e6e1f0;--paper:#fffdfb;--red:#DC5B4A;--red-bg:#FFF1F0;--amber:#B45309;--amber-bg:#FFFBEB;--amber-line:#D97706}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Iowan Old Style',serif;line-height:1.7;font-size:16.5px}
+.wrap{max-width:760px;margin:0 auto;padding:1.6em 1.4em 4em}
+nav,h1,h2,.chip,.banner .lbl{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+nav{font-size:.85em;color:var(--muted);display:flex;justify-content:space-between;gap:1em;flex-wrap:wrap}
+a{color:var(--purple);text-decoration:none}a:hover{text-decoration:underline}
+h1{font-size:1.45em;margin:.6em 0 .1em;line-height:1.3}
+.chips{margin:.4em 0 1em}.chip{display:inline-block;font-size:.66em;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.22em .65em;border-radius:20px;margin-right:.4em}
+.chip.new{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-line)}
+.chip.src{background:#f1eefb;color:var(--purple-dark)}
+.banner{background:var(--amber-bg);border:1.5px dashed var(--amber-line);border-radius:10px;padding:.7em 1em;font-size:.85em;margin:0 0 1.6em}
+.banner .lbl{display:block;font-size:.72em;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:.25em}
+h2{font-size:1.02em;border-left:4px solid var(--purple);padding-left:.5em;margin:1.8em 0 .4em}
+.stmt{background:var(--purple-bg);border-left:4px solid var(--purple);border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1em 0}
+.callback{background:#f7f7f9;border-left:3px solid #999;padding:.5em .9em;margin:.8em 0;font-size:.92em;color:#4b4556}
+.up{background:#f0fdf4;border-left:4px solid #15803d;border-radius:0 10px 10px 0;padding:.8em 1.1em;margin:1.4em 0;font-size:.92em}
+code{background:#f1eefb;padding:.1em .3em;border-radius:4px;font-size:.88em;color:var(--purple-dark)}
+footer{margin-top:2.5em;font-size:.85em;color:var(--muted);border-top:1px solid var(--line);padding-top:1em;font-family:-apple-system,sans-serif}
+</style>
+</head>
+<body><div class="wrap">
+<nav><span><a href="index.html">← all topics</a> · <a href="../kodaira-hinge.html">graph</a></span><span><strong>II.6</strong> → <a href="hartshorne-ii7.html">II.7</a></span></nav>
+
+<h1>Divisors (Hartshorne II.6)</h1>
+<div class="chips"><span class="chip new">⟦NEW⟧ module reserved</span><span class="chip src">hartshorne1977.pdf · cited by II.7, underived</span></div>
+<div class="banner"><span class="lbl">Skim layer — recognition, not understanding</span>
+II.7's note imports this section's notation without deriving it — this page is the decoder ring for that import.</div>
+
+<h2>What this is</h2>
+<p>The scheme-theoretic home of the bookkeeping you already use fluently on curves. A <strong>Weil divisor</strong> is a formal sum $D = \sum n_Y Y$ of codimension-one subvarieties — on a curve, points; on a surface, curves. A <strong>Cartier divisor</strong> is the same idea encoded by where local functions vanish: a global section of $\mathscr K^*/\mathscr O^*$, i.e. compatible local fractions modulo units. $D \sim D'$ (linear equivalence) means the difference is $\operatorname{div}(f)$ for a global rational $f$.</p>
+<div class="callback">Session 1 §2 built all of this on a curve, by hand: divisors as zero/pole data, $\mathcal O(D)$ as "functions with poles no worse than $D$," the transition-function construction, and the punchline that $\mathcal O(D)$ depends only on the class of $D$. II.6 is that story with "point" replaced by "codimension-one subvariety" and Riemann surfaces replaced by schemes.</div>
+
+<h2>Where it sits</h2>
+<p>Strict prerequisite of <a href="hartshorne-ii7.html">II.7</a> (which quotes it as "Setup, cited not re-derived") — that's why it's the one algebraic-side box in the graph that sits <em>before</em> the II.7 machine. It's also flagged in II.7's own frontmatter as a ⟦NEW⟧ dependency, so it's a known debt, not an oversight.</p>
+
+<h2>The delta</h2>
+<p>Two things are genuinely new relative to the curve story. First, <em>Weil vs. Cartier is a real distinction</em>: on singular schemes they differ, and Hartshorne is careful about which is which. On the nonsingular varieties this project lives on they coincide (6.11), and the map $D \mapsto \mathscr L(D)$ identifies divisor classes with line bundles: $\operatorname{Cl}(X) \cong \operatorname{Pic}(X)$ (6.15/6.16). Second, on a surface a divisor is a <em>curve</em>, so "linear equivalence of divisors" becomes the equivalence under which intersection numbers are invariant — the fact V.1's axioms will demand.</p>
+
+<h2>Key statement</h2>
+<div class="stmt">$X$ nonsingular over $k=\bar k$: Weil = Cartier, and $$\operatorname{Cl}(X) \;\cong\; \operatorname{Pic}(X), \qquad D \longmapsto \mathscr L(D),$$ with $\mathscr L(D)\otimes\mathscr L(D') = \mathscr L(D+D')$. Divisor arithmetic <em>is</em> line-bundle arithmetic.</div>
+
+<h2>To go further</h2>
+<p>Source: <code>materials/hartshorne1977.pdf</code>, II.6. The curve case you own; read II.6 for the Weil/Cartier comparison and the class-group examples ($\operatorname{Cl}(\mathbb P^n) = \mathbb Z$, generated by the hyperplane).</p>
+<div class="up"><strong>What upgrades this to a module:</strong> create the stub (it's the only Layer-1 dependency of II.7 with no file); E-entries: $\operatorname{Cl}(\mathbb P^2)$, and the divisor class of a line vs. a conic — feeding straight into V.1's $L\cdot L = 1$.</div>
+
+<footer>Skim page · drawn from <code>_kodaira-network-index.md</code> Layer 1 · part of <a href="../kodaira-hinge.html">the hinge network</a></footer>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>document.addEventListener("DOMContentLoaded",function(){renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:true},{left:"$",right:"$",display:false}],throwOnError:false})});</script>
+</body></html>

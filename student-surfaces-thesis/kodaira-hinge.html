@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Hinge — Kodaira Embedding, Two Proofs, One Destination</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<style>
+  :root{
+    --purple:#7C3AED; --purple-dark:#3B0764; --purple-bg:#F5F3FF;
+    --ink:#241f2e; --muted:#6b6478; --line:#e6e1f0; --paper:#fffdfb;
+    --red:#DC5B4A; --red-bg:#FFF1F0;
+    --amber:#B45309; --amber-bg:#FFFBEB; --amber-line:#D97706;
+    --green:#15803d; --green-bg:#f0fdf4;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; line-height:1.6;}
+  .wrap{max-width:1220px; margin:0 auto; padding:2.6em 2em 5em}
+  h1{font-size:1.7em; font-weight:700; margin:.1em 0 .2em}
+  .meta{color:var(--muted); font-size:.92em; margin-bottom:1.4em}
+  p.lede{max-width:78ch; font-size:1.03em}
+  code{background:#f1eefb; padding:.1em .35em; border-radius:4px; color:var(--purple-dark)}
+  h2{font-size:1.15em; margin:2.4em 0 .3em; border-left:4px solid var(--purple); padding-left:.5em}
+
+  .rule{background:var(--purple-bg); border-left:5px solid var(--purple); border-radius:0 10px 10px 0;
+    padding:1em 1.4em; margin:1.6em 0 2.2em}
+  .rule .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--purple); margin-bottom:.4em}
+
+  .fulfilled{background:var(--green-bg); border-left:4px solid var(--green); border-radius:0 10px 10px 0;
+    padding:1em 1.3em; margin:1.3em 0; max-width:900px}
+  .fulfilled .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--green); margin-bottom:.4em}
+  .fulfilled blockquote{margin:.4em 0; padding:.1em 0 .1em 1em; border-left:3px solid #b9e4c5; color:var(--muted); font-style:italic; font-size:.95em}
+
+  .session{background:#f7f7f9; border-left:4px solid #999; border-radius:0 10px 10px 0; padding:1em 1.3em; margin:1.3em 0; max-width:900px; font-size:.95em}
+  .session .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:#666; margin-bottom:.4em}
+
+  /* stem / dep components, inherited from dependency-map.html */
+  .dep{border-radius:8px; padding:.55em .7em; font-size:.78em; line-height:1.38}
+  .dep .name{font-weight:700; display:block}
+  .dep .src{color:var(--muted); font-size:.88em; display:block; margin-top:.15em}
+  .dep .badge{display:inline-block; margin-top:.4em; margin-right:.3em; font-size:.66em; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:.16em .55em; border-radius:20px}
+  .dep.skip{background:#f5f5f7; border:1px dashed #cfcfd6}
+  .dep.skip .badge{background:#e6e6ea; color:#767680}
+  .dep.nonskip{background:var(--red-bg); border:1.5px solid var(--red)}
+  .dep.nonskip .badge, .badge.attack{background:var(--red); color:#fff}
+  .dep.open{background:var(--amber-bg); border:1.5px dashed var(--amber-line)}
+  .badge.open{background:var(--amber); color:#fff}
+  .badge.unbuilt{background:var(--amber-bg); color:var(--amber); border:1px solid var(--amber-line)}
+  .badge.stubb{background:#e6e6ea; color:#767680}
+  .badge.partial{background:var(--purple-bg); color:var(--purple); border:1px solid var(--purple)}
+  .badge.done{background:var(--green); color:#fff}
+
+  /* the hinge stem layout */
+  .stage{max-width:980px; margin:0 auto}
+  .entry-node, .hinge-node, .dest-node{color:#fff; border-radius:11px; text-align:center;
+    box-shadow:0 3px 10px rgba(124,58,237,.28); padding:1em 1.3em; line-height:1.45}
+  .entry-node{background:#fff; color:var(--ink); border:1.5px solid var(--purple); box-shadow:none; text-align:left}
+  .hinge-node{background:linear-gradient(155deg,var(--purple),#6423c9); font-weight:700; font-size:1.05em}
+  .dest-node{background:linear-gradient(155deg,var(--purple-dark),#2a0a4a); font-weight:700}
+  .hinge-node .sub, .dest-node .sub, .entry-node .sub{display:block; font-weight:400; font-size:.8em; opacity:.92; margin-top:.4em; line-height:1.5}
+  .entry-node .sub{color:var(--muted); opacity:1}
+  .node-badges{margin-top:.5em}
+  .node-badges .badge{display:inline-block; font-size:.64em; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:.18em .6em; border-radius:20px; margin:0 .2em}
+
+  .down{width:2px; height:26px; background:#d9cdf5; margin:0 auto}
+  .down.split{position:relative}
+  .fork-label{text-align:center; color:var(--muted); font-size:.8em; margin:.3em 0 .6em}
+
+  .tracks{display:flex; gap:1.4em; flex-wrap:wrap; align-items:stretch}
+  .track{flex:1; min-width:320px; border-radius:11px; padding:1em 1.2em}
+  .track.analytic{background:var(--purple-bg); border:1.5px solid var(--purple)}
+  .track.algebraic{background:#fdf9f3; border:1.5px solid var(--amber-line)}
+  .track-h{font-weight:700; font-size:.92em; margin-bottom:.2em}
+  .track.analytic .track-h{color:var(--purple-dark)}
+  .track.algebraic .track-h{color:var(--amber)}
+  .track-sub{font-size:.78em; color:var(--muted); margin-bottom:.8em; line-height:1.45}
+  .track .dep{margin-bottom:.55em; background:#fff}
+  .track.analytic .dep{border:1px solid #ddd3f5}
+  .track.algebraic .dep{border:1px solid #eadfc8}
+  .steplbl{display:inline-block; font-size:.72em; font-weight:800; color:#fff; border-radius:5px; padding:.05em .45em; margin-right:.4em; vertical-align:1px}
+  .track.analytic .steplbl{background:var(--purple)}
+  .track.algebraic .steplbl{background:var(--amber-line)}
+
+  .caveat{background:var(--red-bg); border:1.5px dashed var(--red); border-radius:10px; padding:1em 1.3em; margin:1.4em 0; font-size:.92em; max-width:900px}
+  .caveat .lbl{display:block; font-size:.7em; letter-spacing:.08em; text-transform:uppercase; font-weight:700; color:var(--red); margin-bottom:.4em}
+
+  /* resource map */
+  .res-row{display:flex; gap:1.4em; flex-wrap:wrap; margin-top:1em}
+  .res{flex:1; min-width:300px; border-radius:11px; padding:1em 1.2em; border:1px solid var(--line); background:#fff}
+  .res h3{margin:.1em 0 .1em; font-size:.95em; color:var(--purple-dark)}
+  .res .chain{font-size:.86em; margin:.5em 0}
+  .res .chain .arrow-r{color:#c9bff0; font-weight:700; padding:0 .3em}
+  .res ul{margin:.4em 0 0; padding-left:1.2em; font-size:.86em}
+  .res li{margin:.25em 0}
+  .res .who{font-size:.76em; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; font-weight:700}
+
+  /* black-box log */
+  table{width:100%; border-collapse:collapse; margin:1.2em 0; font-size:.88em}
+  th,td{text-align:left; padding:.55em .7em; border-bottom:1px solid var(--line); vertical-align:top}
+  th{font-size:.76em; text-transform:uppercase; letter-spacing:.05em; color:var(--muted)}
+  td .badge{display:inline-block; font-size:.66em; font-weight:700; letter-spacing:.04em;
+    text-transform:uppercase; padding:.16em .55em; border-radius:20px; margin:.1em .15em .1em 0}
+
+  .ii7{display:flex; gap:1em; flex-wrap:wrap; margin-top:1em}
+  .ii7 .area{flex:1; min-width:220px; background:#fff; border:1px solid var(--line); border-radius:10px; padding:.8em 1em; font-size:.84em}
+  .ii7 .area .h{font-weight:700; color:var(--purple-dark); margin-bottom:.3em}
+  .ii7 .area .n{color:var(--muted); font-size:.9em}
+
+  footer{color:var(--muted); font-size:.85em; padding:2.4em 0 1em}
+  @media (max-width:640px){ .wrap{padding:1.6em 1em 4em} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="meta">Extends <code>dependency-map.html</code> (2026-07-02) — whose closing prediction has now come true. Built 2026-07-06, after session&nbsp;1. For both of us: the open items below are the shared to-do list, not hidden bookkeeping.</div>
+  <h1>The hinge: Kodaira embedding, two proofs, one destination</h1>
+  <p class="lede">The main stem of this page is a single theorem and its two proofs. Everything before it (session&nbsp;1's curves) is a special case of it; everything after it (surfaces — Hartshorne&nbsp;Ch.&nbsp;V, Griffiths–Harris Ch.&nbsp;III–IV) needs it. The point of walking both proof routes — one algebraic, one analytic — is not the theorem itself: it's that the two routes, between them, force exactly the fundamental toolkit that studying surfaces requires. The proofs <em>are</em> the curriculum.</p>
+
+  <div class="fulfilled">
+    <span class="lbl">The prediction, fulfilled</span>
+    <code>dependency-map.html</code> closed with this heads-up for Stem&nbsp;6:
+    <blockquote>"Expect one genuinely new nonskippable ingredient at Stem&nbsp;6 — a vanishing theorem (Serre vanishing, or Kodaira vanishing) — to close the surface embedding argument."</blockquote>
+    That ingredient now has a name and an address: the <strong>Kodaira Embedding Theorem</strong> (Griffiths–Harris p.&nbsp;181), whose analytic proof runs exactly through a vanishing theorem. And it isn't only the surface story — the curve fact session&nbsp;1 already used live ($\deg P = 1 \Rightarrow P$ ample; $n\ge 2g+1 \Rightarrow nP$ very ample) is its $n=1$ shadow. The kill list grew up into a theorem.
+  </div>
+
+  <div class="session">
+    <span class="lbl">Session 1 — happened, and went further than planned (2026-07-02)</span>
+    The pre-session plan (<code>thesis-guide.html</code>, now stale — it still says "tomorrow") called for stating two theorems and logging black boxes. What actually happened (<code>board-script.md</code>): Serre duality stated <em>with</em> its residue pairing (§3); the $\deg D > 2g-2$ vanishing proved twice — algebraically via duality (§5) and analytically via Gauss–Bonnet + Hörmander (§6, Sketches A–C); Riemann–Roch <em>derived</em> twice, by the subscheme sequence (§4) and by point-induction (§7); and, closing the loop, a dual proof of "algebraic curve = compact Riemann surface" (§8). Five results were cited live without derivation — they are the black-box log below, all still open.
+  </div>
+
+  <h2>The global map — every module, one screen</h2>
+  <p class="lede">One node per module in <code>_kodaira-network-index.md</code> (the source of truth — update both together). Arrows point from prerequisite to dependent. Read the color, not just the shape: almost everything is amber, i.e. reserved but unwritten — that's the honest state of the network. <strong>Hinge-layer nodes are clickable</strong> — each opens its skim page (<a href="skim/index.html">full list</a>): what the object is, where it sits, the one new thing. Recognition only; the module notes are where understanding happens.</p>
+
+  <div style="overflow-x:auto; background:#fff; border:1px solid var(--line); border-radius:12px; padding:1em .6em; margin:1.2em 0">
+  <svg viewBox="0 0 980 860" width="100%" style="min-width:860px" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif" role="img" aria-label="module dependency graph">
+    <defs>
+      <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="#b7a8e8"/></marker>
+      <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+        <path d="M0 0L10 5L0 10z" fill="#DC5B4A"/></marker>
+      <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#7C3AED"/><stop offset="1" stop-color="#6423c9"/></linearGradient>
+    </defs>
+
+    <!-- ═════ edges (under nodes) ═════ -->
+    <g fill="none" stroke="#c9bff0" stroke-width="2">
+      <path d="M105 60 L105 104" marker-end="url(#arr)"/>
+      <path d="M305 60 C305 84 507 80 507 104" marker-end="url(#arr)"/>
+      <path d="M180 128 L200 128" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+      <path d="M300 152 C300 172 237 176 237 196" marker-end="url(#arr)"/>
+      <path d="M320 152 C340 300 390 400 405 470" marker-end="url(#arr)"/>
+      <path d="M240 152 C130 320 240 480 300 584" marker-end="url(#arr)"/>
+      <path d="M507 152 C507 340 122 420 122 584" marker-end="url(#arr)"/>
+      <path d="M660 152 C620 240 618 300 640 360" marker-end="url(#arr)"/>
+      <path d="M725 152 C760 280 590 440 575 584" marker-end="url(#arr)"/>
+      <path d="M605 302 L625 302" marker-end="url(#arr)"/>
+      <path d="M705 326 L705 360" marker-end="url(#arr)"/>
+      <path d="M885 326 L885 360" marker-end="url(#arr)"/>
+      <path d="M765 326 C800 336 830 344 845 360" marker-end="url(#arr)"/>
+      <path d="M527 278 C527 220 870 210 870 152" marker-end="url(#arr)"/>
+      <path d="M705 408 C705 440 500 445 470 470" marker-end="url(#arr)"/>
+      <path d="M925 408 C915 445 590 452 562 478" marker-end="url(#arr)"/>
+      <path d="M870 152 C935 300 720 420 707 470" marker-end="url(#arr)" stroke-dasharray="5 4"/>
+      <path d="M370 530 C340 552 315 560 310 584" marker-end="url(#arr)"/>
+      <path d="M500 530 C560 556 690 556 712 584" marker-end="url(#arr)"/>
+      <path d="M615 608 L635 608" marker-end="url(#arr)"/>
+      <path d="M470 632 C300 655 147 660 147 692" marker-end="url(#arr)"/>
+      <path d="M950 326 C975 480 887 600 887 692" marker-end="url(#arr)"/>
+      <path d="M925 408 C940 520 892 620 890 692" marker-end="url(#arr)"/>
+      <path d="M830 326 C790 480 697 560 697 692" marker-end="url(#arr)"/>
+      <path d="M140 744 C135 760 128 770 126 784" marker-end="url(#arr)"/>
+      <path d="M200 744 C240 758 300 766 316 784" marker-end="url(#arr)"/>
+      <path d="M895 744 L900 784" marker-end="url(#arr)"/>
+      <path d="M830 744 C700 764 580 768 560 784" marker-end="url(#arr)"/>
+      <path d="M690 744 C645 762 573 768 553 784" marker-end="url(#arr)"/>
+      <path d="M710 744 C720 760 726 770 728 784" marker-end="url(#arr)"/>
+      <path d="M630 810 L650 810" marker-end="url(#arr)"/>
+    </g>
+    <g fill="none" stroke="#DC5B4A" stroke-width="2" stroke-dasharray="5 4">
+      <path d="M600 500 L560 500" marker-end="url(#arrR)"/>
+      <path d="M237 244 C237 360 340 420 380 470" marker-start="url(#arrR)" marker-end="url(#arrR)"/>
+    </g>
+    <text x="300" y="380" font-size="9" fill="#DC5B4A" font-style="italic">n = 1 — must recover §8's bound</text>
+
+    <!-- ═════ layer captions ═════ -->
+    <g font-size="9" letter-spacing=".08em" fill="#8b8496" font-weight="700">
+      <text x="30" y="14">ON FILE</text>
+      <text x="30" y="98">CURVE FLOOR — SESSION-1 BLACK-BOX HOMES</text>
+      <text x="450" y="272">ANALYTIC ROUTE A1–A5 · (B1–B4 LIVE INSIDE II.7)</text>
+      <text x="270" y="464">THE HINGE</text>
+      <text x="40" y="578">DESTINATION — SURFACES (HARTSHORNE V · G–H III–IV)</text>
+      <text x="40" y="686">SCV HORIZON — CONFERENCE 🎤 + YAN'S PROGRAM</text>
+    </g>
+
+    <!-- ═════ nodes ═════ -->
+    <!-- layer 0 -->
+    <g>
+      <rect x="30" y="20" width="150" height="40" rx="8" fill="#f5f5f7" stroke="#cfcfd6"/>
+      <text x="105" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#4b4556">rice-algebra</text>
+      <text x="105" y="51" text-anchor="middle" font-size="9" fill="#767680">full course — on file</text>
+      <rect x="210" y="20" width="190" height="40" rx="8" fill="#f5f5f7" stroke="#cfcfd6"/>
+      <text x="305" y="37" text-anchor="middle" font-size="11" font-weight="700" fill="#4b4556">AG bricks (_AG-prep-index)</text>
+      <text x="305" y="51" text-anchor="middle" font-size="9" fill="#767680">proj · gluing · direct-image · …</text>
+    </g>
+    <!-- layer 1 -->
+    <g>
+      <a href="skim/hartshorne-ii6.html"><rect x="30" y="104" width="150" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="105" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">II.6 — Divisors</text>
+      <text x="105" y="138" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · cited by II.7</text></a>
+      <a href="skim/hartshorne-ii7.html"><rect x="200" y="104" width="200" height="48" rx="8" fill="#fff" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="300" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">II.7 — Projective morphisms</text>
+      <text x="300" y="138" text-anchor="middle" font-size="9" fill="#7C3AED">stub · B1–B4 live here</text></a>
+      <a href="skim/serre-duality-nondegeneracy.html"><rect x="420" y="104" width="175" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="507" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">III.7 — Serre duality nondeg.</text>
+      <text x="507" y="138" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · black box #2</text></a>
+      <a href="skim/hodge-theorem.html"><rect x="615" y="104" width="155" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="692" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GH-ch0 — Hodge theorem</text>
+      <text x="692" y="138" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · bb #3 · M5b core</text></a>
+      <a href="skim/chow-theorem.html"><rect x="790" y="104" width="160" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="870" y="123" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GH-ch1 — Chow's theorem</text>
+      <text x="870" y="138" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · bb #5</text></a>
+      <a href="skim/hartshorne-iv3-curve-embedding.html"><rect x="120" y="196" width="235" height="48" rx="8" fill="#FFF1F0" stroke="#DC5B4A" stroke-width="1.8"/>
+      <text x="237" y="215" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">IV.3 — very ampleness, n ≥ 2g+1</text>
+      <text x="237" y="230" text-anchor="middle" font-size="9" fill="#DC5B4A">bb #1 — UNDER ATTACK · n=1 of the hinge</text></a>
+    </g>
+    <!-- layer 2: A-route -->
+    <g>
+      <a href="skim/gh-projective-space-O1.html"><rect x="450" y="278" width="155" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="527" y="297" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">A1 · Pⁿ, O(1), Fubini–Study</text>
+      <text x="527" y="312" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · source not yet located</text></a>
+      <a href="skim/gh-positive-line-bundles.html"><rect x="625" y="278" width="160" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="705" y="297" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">A2 · positivity, Chern–Weil</text>
+      <text x="705" y="312" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · §6 touched curve case</text></a>
+      <a href="skim/berndtsson-dbar-existence.html"><rect x="805" y="278" width="160" height="48" rx="8" fill="#FFFBEB" stroke="#7C3AED" stroke-width="1.5"/>
+      <text x="885" y="297" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">A4 · dbar / L² 🎤</text>
+      <text x="885" y="312" text-anchor="middle" font-size="9" fill="#7C3AED">partial — Sketches A–C (bb #4)</text></a>
+      <a href="skim/gh-kodaira-vanishing.html"><rect x="625" y="360" width="160" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="705" y="379" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">A3 · Kodaira vanishing</text>
+      <text x="705" y="394" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · G–H pp.148–160</text></a>
+      <a href="skim/demailly-singular-metrics.html"><rect x="805" y="360" width="160" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="885" y="379" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">A5 · singular metrics</text>
+      <text x="885" y="394" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · surfaces only · bayreuth</text></a>
+    </g>
+    <!-- layer 3: hinge -->
+    <g>
+      <a href="skim/kodaira-embedding-theorem.html"><rect x="270" y="470" width="290" height="60" rx="10" fill="url(#pg)"/>
+      <text x="415" y="494" text-anchor="middle" font-size="13" font-weight="800" fill="#fff">KODAIRA EMBEDDING</text>
+      <text x="415" y="511" text-anchor="middle" font-size="9.5" fill="#e9dffc">theorem stub — neither route assembled</text></a>
+      <a href="skim/gaga-positive-ample.html"><rect x="600" y="470" width="215" height="60" rx="10" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="707" y="494" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GAGA: positive ↔ ample</text>
+      <text x="707" y="511" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · unverified bridge</text></a>
+    </g>
+    <!-- layer 4: destination -->
+    <g>
+      <rect x="40" y="584" width="165" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="122" y="603" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">V.1 — intersection pairing</text>
+      <text x="122" y="618" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · axioms in use since M0</text>
+      <rect x="225" y="584" width="165" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="307" y="603" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">V.3 — blow-ups</text>
+      <text x="307" y="618" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · needs 7.16(c) ← hinge</text>
+      <rect x="410" y="584" width="205" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="512" y="603" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GH-ch3 — currents, Chern classes</text>
+      <text x="512" y="618" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · door to the horizon</text>
+      <rect x="635" y="584" width="165" height="48" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="717" y="603" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GH-ch4 — surfaces, analytic</text>
+      <text x="717" y="618" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧</text>
+    </g>
+    <!-- layer 5: horizon -->
+    <g>
+      <rect x="40" y="692" width="215" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="147" y="712" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">Demailly92 — regularization</text>
+      <text x="147" y="727" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · of closed positive currents</text>
+      <rect x="615" y="692" width="165" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="697" y="712" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">OT87 — L² extension 🎤</text>
+      <text x="697" y="727" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · engine for G–Z</text>
+      <rect x="800" y="692" width="175" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="887" y="712" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">multiplier ideals 𝒥(φ) 🎤</text>
+      <text x="887" y="727" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · bayreuth.pdf, on disk</text>
+      <rect x="40" y="784" width="170" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="125" y="804" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">DP04 — Kähler cone</text>
+      <text x="125" y="819" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · math/0105176</text>
+      <rect x="230" y="784" width="185" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="322" y="804" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">Boucksom04 — div. Zariski</text>
+      <text x="322" y="819" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · math/0204336</text>
+      <rect x="455" y="784" width="175" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="542" y="804" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">DK01 — semicontinuity</text>
+      <text x="542" y="819" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · math/9910118</text>
+      <rect x="650" y="784" width="160" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="730" y="804" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">GZ15 — strong openness</text>
+      <text x="730" y="819" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · 1311.3781 · Annals 182</text>
+      <rect x="830" y="784" width="145" height="52" rx="8" fill="#FFFBEB" stroke="#D97706" stroke-dasharray="4 3"/>
+      <text x="902" y="804" text-anchor="middle" font-size="11" font-weight="700" fill="#241f2e">Nadel90 🎤</text>
+      <text x="902" y="819" text-anchor="middle" font-size="9" fill="#B45309">⟦NEW⟧ · = A3, singular</text>
+    </g>
+  </svg>
+  </div>
+
+  <div class="legend" style="display:flex; gap:1.4em; flex-wrap:wrap; font-size:.8em; color:var(--muted); margin:-.2em 0 1em">
+    <span><i class="swatch" style="width:13px;height:13px;border-radius:3px;display:inline-block;background:#fff;border:1.5px solid var(--purple)"></i>&nbsp;stub exists</span>
+    <span><i class="swatch" style="width:13px;height:13px;border-radius:3px;display:inline-block;background:#FFFBEB;border:1.5px dashed var(--amber-line)"></i>&nbsp;⟦NEW⟧ reserved, unwritten</span>
+    <span><i class="swatch" style="width:13px;height:13px;border-radius:3px;display:inline-block;background:#FFF1F0;border:1.5px solid var(--red)"></i>&nbsp;under attack</span>
+    <span><i class="swatch" style="width:13px;height:13px;border-radius:3px;display:inline-block;background:linear-gradient(155deg,var(--purple),#6423c9)"></i>&nbsp;theorem hinge</span>
+    <span style="border-bottom:2px dashed #c9bff0">dashed edge</span>&nbsp;= cited / unverified
+    <span style="border-bottom:2px dashed var(--red)">red dashed</span>&nbsp;= n=1 consistency check
+    <span>🎤 = SCV-conference vocabulary</span>
+  </div>
+
+  <h2>The stem</h2>
+  <p class="lede">Read top to bottom: where we start (already touched), the two proof tracks (the actual work), the theorem they assemble, and what it unlocks. Nearly every card below is honestly marked <em>unbuilt</em> or <em>stub</em> — this is a map of what's outstanding, not a trophy case.</p>
+
+  <div class="stage">
+
+    <div class="entry-node">
+      <strong>Entry — the $n=1$ case, already used, not yet owned.</strong>
+      <span class="sub">Session 1 §8 embedded a curve with it: $\deg P=1\Rightarrow P$ ample, $n\ge2g+1\Rightarrow nP$ very ample, $X\hookrightarrow\mathbb P^{\,n-g}$, then Chow. Both the ample/very-ample machinery and Chow's theorem were <em>cited</em>, not derived — black boxes #1 and #5 below. The general theorem's curve specialization must recover exactly this bound once B2/B3 are built: that check is the test that the assembly is right, not just plausible.</span>
+      <div class="node-badges"><span class="badge attack">first black box — under attack</span></div>
+    </div>
+
+    <div class="down"></div>
+    <div class="fork-label">two independent proof routes — walked in parallel, checked against each other, neither is "the real one"</div>
+
+    <div class="tracks">
+      <div class="track analytic">
+        <div class="track-h">Analytic route — Yan leads</div>
+        <div class="track-sub">Griffiths–Harris + Berndtsson + Demailly. Strategy (cited from G–H, <em>not</em> reconstructed): reduce "embedding" to separating points and tangent vectors via short exact sequences of sheaves, then get both from a vanishing $H^1(M,\mathscr I(L^k))=0$, $k\gg0$. For $\dim M>1$ the ideal sheaves are coherent, not locally free — needing G–H ch.&nbsp;5 machinery or induction via hypersurface sections; which route G–H picks, not yet extracted.</div>
+        <div class="dep"><span class="steplbl">A1</span><span class="name">Projective space and $\mathcal O(1)$, Fubini–Study curvature</span><span class="src">→ <code>gh-projective-space-O1</code> · source in G–H ch.0/early ch.1, not yet located precisely</span><span class="badge unbuilt">⟦NEW⟧ unbuilt</span></div>
+        <div class="dep"><span class="steplbl">A2</span><span class="name">Positive line bundles; Chern–Weil; curvature ↔ degree</span><span class="src">→ <code>gh-positive-line-bundles</code> · curve case touched informally in board-script §6</span><span class="badge unbuilt">⟦NEW⟧ unbuilt</span></div>
+        <div class="dep"><span class="steplbl">A3</span><span class="name">The vanishing theorem the embedding reduces to</span><span class="src">→ <code>gh-kodaira-vanishing</code> · G–H "Some Vanishing Theorems," pp.148–160 — located, not extracted</span><span class="badge unbuilt">⟦NEW⟧ unbuilt</span></div>
+        <div class="dep"><span class="steplbl">A4</span><span class="name">$\bar\partial$-existence machinery beyond one variable</span><span class="src">→ <code>berndtsson-dbar-existence</code> · one-variable case = board-script §6 Sketch B</span><span class="badge unbuilt">⟦NEW⟧ unbuilt</span><span class="badge partial">1-var sketched</span></div>
+        <div class="dep"><span class="steplbl">A5</span><span class="name">Demailly's singular metrics <em>(surfaces only)</em></span><span class="src">→ <code>demailly-singular-metrics</code> · needed once $L$ isn't strictly positive everywhere, e.g. exceptional divisors</span><span class="badge unbuilt">⟦NEW⟧ unbuilt</span></div>
+      </div>
+
+      <div class="track algebraic">
+        <div class="track-h">Algebraic route — student leads</div>
+        <div class="track-sub">Hartshorne II.7. No vanishing theorem at this level: "ample" is <em>defined</em> by the generation property, and Thm&nbsp;7.6's proof is a direct construction — cover by affines where a power of $\mathscr L$ trivializes, patch. Every step below cites the <code>Hartshorne-II.7</code> note, which is a <strong>stub</strong>: statements only, every proof postponed.</div>
+        <div class="dep"><span class="steplbl">B1</span><span class="name">Morphisms to $\mathbb P^n$ from (invertible sheaf, generating sections)</span><span class="src">→ II.7 #C1 (Thm 7.1)</span><span class="badge stubb">stub — proof postponed</span></div>
+        <div class="dep"><span class="steplbl">B2</span><span class="name">Closed-immersion criterion: separates points + tangent vectors</span><span class="src">→ II.7 #C3 (Prop 7.3)</span><span class="badge stubb">stub — proof postponed</span></div>
+        <div class="dep"><span class="steplbl">B3</span><span class="name">Ample $\Rightarrow$ some power very ample</span><span class="src">→ II.7 #C5 (Thm 7.6) · the student's first pass here hit trouble — being checked now</span><span class="badge attack">under attack</span></div>
+        <div class="dep"><span class="steplbl">B4</span><span class="name">Blowing up <em>(surfaces only)</em></span><span class="src">→ II.7 #D8, #C12–#C16 · see the blow-up caution below</span><span class="badge stubb">stub — proof postponed</span></div>
+      </div>
+    </div>
+
+    <div class="down"></div>
+
+    <div class="hinge-node">
+      Kodaira Embedding Theorem
+      <span class="sub">$M$ compact complex, $L\to M$ positive ($\exists\,h$ with $\Theta_h>0$ as a $(1,1)$-form) $\;\Longrightarrow\;$ for $k\ge k_0$, $\;\iota_{L^k}:M\to\mathbb P^N$, $N=\dim H^0(M,L^k)-1$, is an embedding. <em>(Griffiths–Harris p.181)</em></span>
+      <div class="node-badges"><span class="badge" style="background:#fff;color:var(--purple-dark)">stub — statement + cited idea of proof only</span><span class="badge" style="background:rgba(255,255,255,.18);color:#fff">neither route assembled</span></div>
+    </div>
+
+    <div class="caveat">
+      <span class="lbl">Two honest gaps at the hinge itself</span>
+      <strong>1.</strong> The algebraic restatement ("positive ↔ ample", making the theorem the assembly of B1+B2+B3) is itself a real correspondence — GAGA-adjacent — <em>not</em> a notational translation, and it is not yet verified here. <strong>2.</strong> Genuinely unresolved, on purpose: are the two proofs the same argument in different clothes (Hartshorne's patching construction ↔ G–H's vanishing-theorem reduction), or structurally different arguments reaching the same conclusion? Decide only after both routes are actually built — not now.
+    </div>
+
+    <div class="down"></div>
+
+    <div class="dest-node">
+      Destination: surfaces
+      <span class="sub">Hartshorne Ch. V (intersection theory, ruled surfaces, blow-ups, classification — <code>dependency-map.html</code> Stems 3–6) &nbsp;·&nbsp; Griffiths–Harris Ch. III–IV (further techniques, surfaces). The theorem is load-bearing here twice: Hartshorne 7.16(c) cites it so blow-ups of quasi-projective varieties stay quasi-projective (Stem 5), and the cubic-surface embedding via $-K$ is Stem 6's nonskippable node. The thesis anchor — whichever of the three is chosen — lives on this floor.</span>
+      <div class="node-badges"><span class="badge" style="background:rgba(255,255,255,.18);color:#fff">reachable once the hinge is built</span></div>
+    </div>
+
+  </div>
+
+  <h2>The two-track resource map — and why the ordering is on purpose</h2>
+  <div class="res-row">
+    <div class="res">
+      <span class="who">Algebraic track · student leads · goes first</span>
+      <h3>Commutative algebra → Hartshorne</h3>
+      <div class="chain"><code>../rice-algebra/</code><span class="arrow-r">→</span><code>materials/hartshorne1977.pdf</code></div>
+      <ul>
+        <li>II.7 (the B-steps' home): stub transcribed, see its shape below</li>
+        <li>II.6 (divisors proper): still ⟦NEW⟧, not written — II.7 imports it as cited, not derived</li>
+        <li>Deeper backup: full Rice course, 37 lectures</li>
+      </ul>
+    </div>
+    <div class="res">
+      <span class="who">Analytic track · Yan leads · arrives second</span>
+      <h3>Griffiths–Harris + Berndtsson + Demailly</h3>
+      <div class="chain"><code>materials/Griffiths-harris/</code> (ch.0–6)<span class="arrow-r">+</span><code>materials/7nynot.pdf</code><span class="arrow-r">+</span><code>materials/bayreuth.pdf</code></div>
+      <ul>
+        <li>G–H: A1–A3's home (vanishing theorems pp.148–160; the theorem itself p.181)</li>
+        <li>Berndtsson: A4 — $\bar\partial$-existence past one variable</li>
+        <li>Demailly: A5 — singular metrics, the surface-case tool</li>
+        <li>All three locally present — confirmed 2026-07-06</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="rule">
+    <span class="lbl">The ordering is deliberate, not incidental</span>
+    For any given black box, the student is sent into the <strong>harder</strong>, more scheme-theoretic source (Hartshorne) <em>first</em> — even where Griffiths–Harris would be more accessible given his background (do Carmo, Bott–Tu, Huybrechts ch.1 are all closer to G–H's register). The point: build the rigorous version <em>before</em> a geometric picture exists to lean on. The analytic/G–H route arrives <em>second</em>, as an independent confirmation of the same fact from the opposite direction — the same dual-unlock pattern as M5a/M5b — not as the easier way in.
+  </div>
+
+  <h2>The black-box log — five entries, zero unlocked</h2>
+  <p class="lede">Backfilled 2026-07-06 from <code>board-script.md</code> into <code>_thesis-plan-index.md</code>. Everything below was <em>used</em> in session 1; nothing below has been <em>derived</em>. That's the method working, not failing — but the ledger stays honest.</p>
+  <table>
+    <tr><th>Black box</th><th>First hit</th><th>Algebraic route</th><th>Analytic route</th></tr>
+    <tr>
+      <td><strong>Point on a curve is ample; $n\ge2g+1$ very ample</strong><br><span style="color:var(--muted);font-size:.9em">Hartshorne Prop 7.3 + Thm 7.6, specialized via IV.3.3 — the hinge's $n=1$ case</span></td>
+      <td>board-script §8</td>
+      <td><span class="badge attack">under attack</span> first II.7 pass hit trouble, being checked</td>
+      <td><span class="badge open">open</span> G–H + Kodaira route, not started</td>
+    </tr>
+    <tr>
+      <td><strong>Serre duality's nondegeneracy</strong><br><span style="color:var(--muted);font-size:.9em">the pairing is <em>perfect</em>, not just well-defined — §3 built the pairing itself, honestly</span></td>
+      <td>board-script §3</td>
+      <td><span class="badge open">open</span></td>
+      <td><span class="badge open">open</span></td>
+    </tr>
+    <tr>
+      <td><strong>The Hodge theorem</strong><br><span style="color:var(--muted);font-size:.9em">harmonic representatives — borrowed ahead of schedule for the $g=\frac12 b_1$ derivation</span></td>
+      <td>board-script §3</td>
+      <td>—</td>
+      <td><span class="badge open">open</span> this <em>is</em> M5b's track, once reached</td>
+    </tr>
+    <tr>
+      <td><strong>Hörmander's $L^2$ estimate</strong><br><span style="color:var(--muted);font-size:.9em">one-variable version sketched live (Sketches A–C); the estimate itself still cited</span></td>
+      <td>board-script §6</td>
+      <td>—</td>
+      <td><span class="badge partial">partial</span> Sketches A–C; feeds A4</td>
+    </tr>
+    <tr>
+      <td><strong>Chow's theorem</strong><br><span style="color:var(--muted);font-size:.9em">analytic $\Rightarrow$ algebraic in $\mathbb P^N$ — the last step of §8's embedding argument</span></td>
+      <td>board-script §8</td>
+      <td><span class="badge open">open</span></td>
+      <td><span class="badge open">open</span></td>
+    </tr>
+  </table>
+
+  <h2>What the algebraic route actually cites: the shape of II.7</h2>
+  <p class="lede"><code>Hartshorne-II.7 — Projective morphisms.md</code> is a 16-entry stub — statements only, quoted close to the source, every proof postponed. One machine (invertible sheaf + generating sections ↔ morphism to $\mathbb P^n$, Thm 7.1) run in four settings:</p>
+  <div class="ii7">
+    <div class="area"><div class="h">A · Morphisms to $\mathbb P^n$</div><div class="n">Thm 7.1, closed-immersion criteria (7.2, 7.3) — B1, B2 live here</div></div>
+    <div class="area"><div class="h">B · Ample sheaves</div><div class="n">Definition via generation; ample ⇔ power very ample (7.5, 7.6) — B3 lives here</div></div>
+    <div class="area"><div class="h">C · Linear systems</div><div class="n">$|D|$, base points, the divisor–section dictionary (7.7–7.8)</div></div>
+    <div class="area"><div class="h">D · Proj, $\mathbb P(\mathscr E)$, blowing up</div><div class="n">Relative Proj, universal property, 7.16–7.17 — B4 lives here</div></div>
+  </div>
+
+  <div class="caveat">
+    <span class="lbl">Blow-up caution — a documented trouble spot, do not re-trip on it</span>
+    The blow-up is $\operatorname{Proj}$ of the <strong>Rees algebra</strong> $\bigoplus_{d\ge0}\mathscr I^d$ (II.7 #D8). The existing <code>deformation-to-normal-cone</code> brick is about the <strong>normal cone</strong> — $\operatorname{Spec}$ of the <em>associated graded</em> $\bigoplus \mathscr I^d/\mathscr I^{d+1}$. Related constructions, genuinely different objects: one is a birational modification of $X$, the other is the degeneration target sitting over the center. <code>dependency-map.html</code>'s Stem-5 card points at the brick as background; the brick is <em>not</em> the blow-up construction itself.
+  </div>
+
+  <h2>The horizon past the hinge — why the analytic track is oversized on purpose</h2>
+  <p class="lede">The A-track builds more analytic machinery than the surface case strictly needs. That's deliberate: the same tools are the working language of the several-complex-variables world this project points at next. Two concrete targets, both downstream of A4 + A5, both <em>not started</em> — listed here so the stem is read as an on-ramp, not a closed loop.</p>
+
+  <div class="res-row">
+    <div class="res">
+      <span class="who">Byproduct target · the student · upcoming SCV conference</span>
+      <h3>Follow the talks: $L^2$ estimates &amp; multiplier ideal sheaves</h3>
+      <ul>
+        <li><strong>$L^2$ estimates</strong> — already seeded: board-script §6 Sketch B is Hörmander in one variable; A4 (Berndtsson) is its general form. This is the single most load-bearing phrase at an SCV conference.</li>
+        <li><strong>Multiplier ideal sheaves</strong> $\mathscr J(\varphi)$ — germs $f$ with $|f|^2e^{-2\varphi}$ locally integrable: the object that makes A5's singular metrics usable. One small step past A5, and the standing vocabulary of the field.</li>
+        <li><strong>Nadel vanishing</strong> — Kodaira vanishing (A3) upgraded to singular metrics, with $\mathscr J(\varphi)$ absorbing the singularities. Recognizing it as "A3, singular version" is exactly conference-following ability.</li>
+      </ul>
+      <div class="chain" style="color:var(--muted);font-size:.8em">Recognition mode, not mastery — the goal is that talk titles and blackboard incantations resolve to known objects. Per-talk prep gets its own <code>talk-init</code> cards when the program is out.</div>
+    </div>
+    <div class="res">
+      <span class="who">Yan's further plan · downstream research program</span>
+      <h3>Currents, openness, Zariski decompositions</h3>
+      <ul>
+        <li><strong>Boucksom, divisorial Zariski decompositions</strong> — arXiv:math/0204336, publ. Ann. Sci. ENS 37 (2004): psef class = nef-in-codim-1 part + exceptional divisorial part, via currents with minimal singularities.</li>
+        <li><strong>Nadel vanishing theorem</strong> — Ann. of Math. 132 (1990); also in <code>materials/bayreuth.pdf</code>, already on disk. Shared with the student's column: the natural first summit after A3 + A5.</li>
+        <li><strong>Demailly, regularization of closed positive currents</strong> — J. Alg. Geom. 1 (1992), built on Hörmander $L^2$ (= A4's tool). Its flagship application is <strong>Demailly–Păun</strong>, numerical characterization of the Kähler cone — arXiv:math/0105176, Ann. of Math. 159 (2004).</li>
+        <li><strong>Demailly–Kollár semicontinuity</strong> of singularity exponents — arXiv:math/9910118, Ann. Sci. ENS 34 (2001), which poses the openness conjecture; <strong>strong openness</strong> proved by Guan–Zhou — arXiv:1311.3781, Ann. of Math. 182 (2015), via Ohsawa–Takegoshi.</li>
+      </ul>
+      <div class="chain" style="color:var(--muted);font-size:.8em">All strictly past A4 + A5; module rows reserved in <code>_kodaira-network-index.md</code> (Layer 5). When one is opened it gets its stub per the framework, same recipe as the Kodaira note.</div>
+    </div>
+  </div>
+
+  <footer>
+    Read together with <code>dependency-map.html</code> (the IV/V-vs-II/III citation map, kept intact — its skippable/nonskippable framework still governs; this page zooms into the one node it marked nonskippable), <code>thesis-guide.html</code> (the pre-session-1 prose guide; its agenda section is now historical), <code>Kodaira embedding theorem.md</code> (the theorem node this page renders), <code>_kodaira-network-index.md</code> (the complete module catalog — the graph above is drawn from it; update both together), and <code>_thesis-plan-index.md</code> (the working ledger). Hand-authored — edit directly, no build step.
+  </footer>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    renderMathInElement(document.body, {
+      delimiters: [
+        {left: "$$", right: "$$", display: true},
+        {left: "$", right: "$", display: false}
+      ],
+      throwOnError: false
+    });
+  });
+</script>
+</body>
+</html>
